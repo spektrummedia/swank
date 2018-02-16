@@ -10,7 +10,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swank.FormsPlugin.Abstractions", "src\Swank.FormsPlugin.Abstractions\Swank.FormsPlugin.Abstractions.csproj", "{66D44A51-488D-4550-8A4F-C6EC7DBE06DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swank.FormsPlugin.iOS", "src\Swank.FormsPlugin.iOS\Swank.FormsPlugin.iOS.csproj", "{4F4F94DE-31CA-4491-8F74-BA0595AF7A42}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66D44A51-488D-4550-8A4F-C6EC7DBE06DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D44A51-488D-4550-8A4F-C6EC7DBE06DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D44A51-488D-4550-8A4F-C6EC7DBE06DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D44A51-488D-4550-8A4F-C6EC7DBE06DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F4F94DE-31CA-4491-8F74-BA0595AF7A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F4F94DE-31CA-4491-8F74-BA0595AF7A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F4F94DE-31CA-4491-8F74-BA0595AF7A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F4F94DE-31CA-4491-8F74-BA0595AF7A42}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
