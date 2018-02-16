@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
 		readme.md = readme.md
+		nuget\Swank.nuspec = nuget\Swank.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swank.FormsPlugin.Abstractions", "src\Swank.FormsPlugin.Abstractions\Swank.FormsPlugin.Abstractions.csproj", "{66D44A51-488D-4550-8A4F-C6EC7DBE06DB}"
