@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Swank.FormsPlugin</id>
+    <version>1.0.0</version>
+    <title>Xamarin embeddable image viewer with 360 degree support for Xamarin Forms</title>
+    <authors>spektrummedia</authors>
+    <owners>Spektrum Media</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/spektrumgeeks/swank/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/spektrumgeeks/swank</projectUrl>
+    <iconUrl>https://avatars1.githubusercontent.com/u/13052913</iconUrl>
+    <description>Xamarin embeddable image viewer with 360 degree support for Xamarin Forms</description>
+    <copyright>Copyright ©2018</copyright>
+    <tags>xamarin, xamarin.forms, ios, photo, image, viewer, 360</tags>
+    <releaseNotes></releaseNotes>
+    <dependencies>
+       <group targetFramework="netstandard1.0">
+         <dependency id="NETStandard.Library" version="1.6.1" />
+         <dependency id="Xamarin.Forms" version="2.4.0.282"/>
+       </group>
+       <group targetFramework="Xamarin.iOS10">
+         <dependency id="Xamarin.Forms" version="2.4.0.282"/>
+       </group>
+     </dependencies>
+  </metadata>
+  <files>
+     <!-- Xamarin.iOS
+     <file src="../src/Swank\Swank.FormsPlugin.iOS\bin\iPhone\Release\Swank.FormsPlugin.iOS.dll" target="lib\Xamarin.iOS10" />
+     <file src="../src/Swank\Swank.FormsPlugin.iOS\bin\iPhone\Release\Swank.FormsPlugin.iOS.xml" target="lib\Xamarin.iOS10" /> -->
+</files>
+</package>
