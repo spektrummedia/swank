@@ -6,7 +6,17 @@ namespace Swank.FormsPlugin.Abstractions
     {
         public Viewer()
         {
-            Content = new StackLayout();
+            BackgroundColor = Color.Red;
+
+            // Size
+            Orientation = ScrollOrientation.Horizontal;
+            Content = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0),
+                Margin = new Thickness(0),
+                Spacing = 0
+            };
         }
     }
 }
