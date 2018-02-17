@@ -120,6 +120,10 @@ _NCrunch_*
 .*crunch*.local.xml
 nCrunchTemp_*
 
+# NDepend
+NDependOut/
+*.ndproj
+
 # MightyMoose
 *.mm.*
 AutoTest.Net/
