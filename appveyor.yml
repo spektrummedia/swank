@@ -13,3 +13,11 @@ build_script:
 artifacts:
 - path: ./Build/nuget/*.nupkg
   name: NuGet
+
+deploy:
+  provider: NuGet
+  api_key:
+    secure: 08VoeMu7J5NvW2Rhro9kRtzP53d6omvavlOgBaY32/WQt5ENeE3HKKCe1tbCDOUy
+  artifact: /.*\.nupkg/
+  on:
+    branch: master
