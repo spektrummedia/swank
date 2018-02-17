@@ -16,6 +16,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swank.FormsPlugin.Abstracti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swank.FormsPlugin.iOS", "src\Swank.FormsPlugin.iOS\Swank.FormsPlugin.iOS.csproj", "{A284A805-9FB9-4AAD-A585-B92CF3071D9F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E14E23F3-7ADB-4192-ABE3-0A90D4E6D745}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swank.FormsPlugin.iOS.Tests", "tests\Swank.FormsPlugin.iOS.Tests\Swank.FormsPlugin.iOS.Tests.csproj", "{93A8617E-0664-4B1D-9F88-3D23D2568800}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,9 +52,22 @@ Global
 		{A284A805-9FB9-4AAD-A585-B92CF3071D9F}.Release|iPhone.Build.0 = Release|iPhone
 		{A284A805-9FB9-4AAD-A585-B92CF3071D9F}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{A284A805-9FB9-4AAD-A585-B92CF3071D9F}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{93A8617E-0664-4B1D-9F88-3D23D2568800}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{93A8617E-0664-4B1D-9F88-3D23D2568800}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{93A8617E-0664-4B1D-9F88-3D23D2568800}.Debug|iPhone.Build.0 = Debug|iPhone
+		{93A8617E-0664-4B1D-9F88-3D23D2568800}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{93A8617E-0664-4B1D-9F88-3D23D2568800}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{93A8617E-0664-4B1D-9F88-3D23D2568800}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{93A8617E-0664-4B1D-9F88-3D23D2568800}.Release|iPhone.ActiveCfg = Release|iPhone
+		{93A8617E-0664-4B1D-9F88-3D23D2568800}.Release|iPhone.Build.0 = Release|iPhone
+		{93A8617E-0664-4B1D-9F88-3D23D2568800}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{93A8617E-0664-4B1D-9F88-3D23D2568800}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{93A8617E-0664-4B1D-9F88-3D23D2568800} = {E14E23F3-7ADB-4192-ABE3-0A90D4E6D745}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C978D50C-B96D-4DCC-AD04-7B8F143ECD44}
