@@ -9,25 +9,21 @@ namespace Swank.FormsPlugin.iOS.Tests
     {
         public App()
         {
-            var viewer = new Viewer
-            {
-                ItemsSource = new List<ViewerImage>
-                {
-                    new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/350x150"))}
-                }
-            };
-
-
             MainPage = new NavigationPage(new ContentPage
             {
+                Title = "Swank - iOS",
                 Content = new StackLayout
                 {
                     VerticalOptions = LayoutOptions.Center,
-                    Padding = new Thickness(32, 32, 32, 32),
                     Children =
                     {
-                        new Label {Text = "Swank - iOS"},
-                        viewer
+                        new Viewer
+                        {
+                            ItemsSource = new List<ViewerImage>
+                            {
+                                new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/350x150"))}
+                            }
+                        }
                     }
                 }
             });

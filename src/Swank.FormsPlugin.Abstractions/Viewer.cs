@@ -74,6 +74,17 @@ namespace Swank.FormsPlugin.Abstractions
                 Spacing = 0
             };
 
+            ItemTemplate = new DataTemplate(() =>
+            {
+                var image = new Image();
+                image.SetBinding(Image.SourceProperty, nameof(ViewerImage.Source));
+
+                var layout = new StackLayout();
+                layout.Children.Add(image);
+
+                return layout;
+            });
+
             Content = _imageStack;
         }
 

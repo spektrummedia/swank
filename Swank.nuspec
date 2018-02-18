@@ -25,8 +25,8 @@
      </dependencies>
   </metadata>
   <files>
-     <!-- Xamarin.iOS
+     <!-- Xamarin.iOS -->
      <file src="../src/Swank\Swank.FormsPlugin.iOS\bin\iPhone\Release\Swank.FormsPlugin.iOS.dll" target="lib\Xamarin.iOS10" />
-     <file src="../src/Swank\Swank.FormsPlugin.iOS\bin\iPhone\Release\Swank.FormsPlugin.iOS.xml" target="lib\Xamarin.iOS10" /> -->
+     <file src="../src/Swank\Swank.FormsPlugin.iOS\bin\iPhone\Release\Swank.FormsPlugin.iOS.xml" target="lib\Xamarin.iOS10" />
 </files>
 </package>
