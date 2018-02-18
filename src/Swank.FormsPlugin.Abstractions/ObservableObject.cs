@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Swank.FormsPlugin.Abstractions
 {
-    public class ObservableObject : INotifyPropertyChanged
+    internal class ObservableObject : INotifyPropertyChanged
     {
         /// <summary>
         ///     Occurs when property changed.
