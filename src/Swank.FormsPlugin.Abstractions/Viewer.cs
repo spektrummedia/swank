@@ -64,20 +64,30 @@ namespace Swank.FormsPlugin.Abstractions
 
         public Viewer()
         {
-            BackgroundColor = Color.Red;
+            // Boxing
+            Padding = 0;
+            Margin = 0;
+
+            // Positioning
             Orientation = ScrollOrientation.Horizontal;
+            HorizontalOptions = LayoutOptions.FillAndExpand;
+            VerticalOptions = LayoutOptions.FillAndExpand;
+
             _imageStack = new StackLayout
             {
                 Orientation = StackOrientation.Horizontal,
                 Padding = new Thickness(0),
                 Margin = new Thickness(0),
-                Spacing = 0
+                Spacing = 0,
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center
             };
 
             ItemTemplate = new DataTemplate(() =>
             {
                 var image = new Image();
                 image.SetBinding(Image.SourceProperty, nameof(ViewerImage.Source));
+                image.Aspect = Aspect.AspectFit;
 
                 var layout = new StackLayout();
                 layout.Children.Add(image);
