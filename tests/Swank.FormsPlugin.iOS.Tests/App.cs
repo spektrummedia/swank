@@ -21,7 +21,7 @@ namespace Swank.FormsPlugin.iOS.Tests
                         {
                             ItemsSource = new List<ViewerImage>
                             {
-                                new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/350x150"))}
+                                new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/400x300"))}
                             }
                         }
                     }
