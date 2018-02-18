@@ -1,4 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Collections.Generic;
+using Swank.FormsPlugin.Abstractions;
+using Xamarin.Forms;
 
 namespace Swank.FormsPlugin.iOS.Tests
 {
@@ -6,6 +9,15 @@ namespace Swank.FormsPlugin.iOS.Tests
     {
         public App()
         {
+            var viewer = new Viewer
+            {
+                ItemsSource = new List<ViewerImage>
+                {
+                    new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/350x150"))}
+                }
+            };
+
+
             MainPage = new NavigationPage(new ContentPage
             {
                 Content = new StackLayout
@@ -14,7 +26,8 @@ namespace Swank.FormsPlugin.iOS.Tests
                     Padding = new Thickness(32, 32, 32, 32),
                     Children =
                     {
-                        new Label {Text = "Swank - iOS"}
+                        new Label {Text = "Swank - iOS"},
+                        viewer
                     }
                 }
             });
