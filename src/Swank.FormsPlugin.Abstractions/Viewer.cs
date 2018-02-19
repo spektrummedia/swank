@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Specialized;
 using System.Linq;
 using Xamarin.Forms;
@@ -9,7 +10,7 @@ namespace Swank.FormsPlugin.Abstractions
     {
         public IList ItemsSource
         {
-            get => (IList) GetValue(ItemsSourceProperty);
+            get => (IList)GetValue(ItemsSourceProperty);
             set => SetValue(ItemsSourceProperty, value);
         }
 
@@ -23,7 +24,7 @@ namespace Swank.FormsPlugin.Abstractions
 
         public int SelectedIndex
         {
-            get => (int) GetValue(SelectedIndexProperty);
+            get => (int)GetValue(SelectedIndexProperty);
             set => SetValue(SelectedIndexProperty, value);
         }
 
@@ -36,7 +37,7 @@ namespace Swank.FormsPlugin.Abstractions
                 BindingMode.OneWay,
                 propertyChanged: (bindableObject, oldValue, newValue) =>
                 {
-                    ((Viewer) bindableObject).ItemsSourceChanged(bindableObject, (IList) oldValue, (IList) newValue);
+                    ((Viewer)bindableObject).ItemsSourceChanged(bindableObject, (IList)oldValue, (IList)newValue);
                 }
             );
 
@@ -47,7 +48,7 @@ namespace Swank.FormsPlugin.Abstractions
                 typeof(Viewer),
                 null,
                 BindingMode.OneWay,
-                propertyChanged: (bindable, oldValue, newValue) => { ((Viewer) bindable).UpdateSelectedIndex(); }
+                propertyChanged: (bindable, oldValue, newValue) => { ((Viewer)bindable).UpdateSelectedIndex(); }
             );
 
         public static readonly BindableProperty SelectedIndexProperty =
@@ -57,7 +58,7 @@ namespace Swank.FormsPlugin.Abstractions
                 typeof(Viewer),
                 0,
                 BindingMode.TwoWay,
-                propertyChanged: (bindable, oldValue, newValue) => { ((Viewer) bindable).UpdateSelectedItem(); }
+                propertyChanged: (bindable, oldValue, newValue) => { ((Viewer)bindable).UpdateSelectedItem(); }
             );
 
         private readonly StackLayout _imageStack;
@@ -79,8 +80,8 @@ namespace Swank.FormsPlugin.Abstractions
                 Padding = new Thickness(0),
                 Margin = new Thickness(0),
                 Spacing = 0,
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand
             };
 
             ItemTemplate = new DataTemplate(() =>
@@ -89,13 +90,35 @@ namespace Swank.FormsPlugin.Abstractions
                 image.SetBinding(Image.SourceProperty, nameof(ViewerImage.Source));
                 image.Aspect = Aspect.AspectFit;
 
-                var layout = new StackLayout();
+                var layout = new StackLayout()
+                {
+                    Padding = new Thickness(0),
+                    Margin = new Thickness(0),
+                    Spacing = 0,
+                    VerticalOptions = LayoutOptions.CenterAndExpand,
+                    HorizontalOptions = LayoutOptions.CenterAndExpand
+                };
                 layout.Children.Add(image);
 
                 return layout;
             });
 
             Content = _imageStack;
+            SizeChanged += OnSizeChanged;
+        }
+
+        private void OnSizeChanged(object o, EventArgs eventArgs)
+        {
+            if (Height > 0 && Width > 0)
+            {
+                foreach (var image in _imageStack.Children)
+                {
+                    image.Layout(new Rectangle(image.X, image.Y, Width, image.Height));
+                }
+
+                _imageStack.Layout(new Rectangle(0, 0, Width * _imageStack.Children.Count, Height));
+                _imageStack.ForceLayout();
+            }
         }
 
         private void ItemsSourceChanged(BindableObject bindable, IList oldValue, IList newValue)
@@ -123,7 +146,7 @@ namespace Swank.FormsPlugin.Abstractions
             {
                 foreach (var newItem in newItems)
                 {
-                    var view = (View) ItemTemplate.CreateContent();
+                    var view = (View)ItemTemplate.CreateContent();
                     if (view is BindableObject bindableObject)
                     {
                         bindableObject.BindingContext = newItem;
@@ -138,13 +161,16 @@ namespace Swank.FormsPlugin.Abstractions
             {
                 foreach (var oldItem in oldItems)
                 {
-                    var item = (ViewerImage) oldItem;
+                    var item = (ViewerImage)oldItem;
                     var existing = _imageStack.Children.FirstOrDefault(x => x.BindingContext == item);
                     if (existing != null)
                     {
                         _imageStack.Children.Remove(existing);
                     }
                 }
+
+                _imageStack.Layout(new Rectangle(0, 0, _imageStack.Width * _imageStack.Children.Count,
+                    _imageStack.Height));
             }
         }
 
