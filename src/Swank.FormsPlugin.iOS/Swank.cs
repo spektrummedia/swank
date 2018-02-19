@@ -1,15 +1,14 @@
-﻿using System;
-using CarouselView.FormsPlugin.iOS;
+﻿using CarouselView.FormsPlugin.iOS;
 
 namespace Swank.FormsPlugin.iOS
 {
     /// <summary>
-    /// Instance registration class
+    ///     Instance registration class
     /// </summary>
     public static class Swank
     {
         /// <summary>
-        /// Init this instance
+        ///     Init this instance
         /// </summary>
         public static void Init()
         {
