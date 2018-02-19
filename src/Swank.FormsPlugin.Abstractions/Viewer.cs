@@ -19,9 +19,6 @@ namespace Swank.FormsPlugin.Abstractions
             InterPageSpacing = 10;
             Orientation = CarouselViewOrientation.Horizontal;
             BackgroundColor = Color.Black;
-            WidthRequest = 600;
-            HeightRequest = 200;
-            ShowArrows = true;
             ShowIndicators = true;
             ItemTemplate = new DataTemplate(typeof(ViewerImageTemplate));
         }
