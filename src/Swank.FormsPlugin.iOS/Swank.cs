@@ -1,4 +1,5 @@
 ﻿using System;
+using CarouselView.FormsPlugin.iOS;
 
 namespace Swank.FormsPlugin.iOS
 {
@@ -12,7 +13,7 @@ namespace Swank.FormsPlugin.iOS
         /// </summary>
         public static void Init()
         {
-            var time = DateTime.UtcNow;
+            CarouselViewRenderer.Init();
         }
     }
 }
