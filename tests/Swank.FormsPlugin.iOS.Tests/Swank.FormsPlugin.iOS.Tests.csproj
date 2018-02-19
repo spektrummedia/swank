@@ -84,6 +84,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="CarouselView.FormsPlugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CarouselView.FormsPlugin.5.2.0\lib\Xamarin.iOS10\CarouselView.FormsPlugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="CarouselView.FormsPlugin.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CarouselView.FormsPlugin.5.2.0\lib\Xamarin.iOS10\CarouselView.FormsPlugin.iOS.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
