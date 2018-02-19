@@ -6,7 +6,11 @@ namespace Swank.FormsPlugin.Abstractions
     {
         public ViewerImageTemplate()
         {
-            var layout = new StackLayout();
+            var layout = new StackLayout()
+            {
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalOptions = LayoutOptions.CenterAndExpand
+            };
             var image = new Image
             {
                 Aspect = Aspect.AspectFit
