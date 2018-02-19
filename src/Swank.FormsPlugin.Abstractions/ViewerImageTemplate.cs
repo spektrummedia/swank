@@ -9,7 +9,7 @@ namespace Swank.FormsPlugin.Abstractions
             var layout = new StackLayout();
             var image = new Image
             {
-                Aspect = Aspect.AspectFill
+                Aspect = Aspect.AspectFit
             };
             image.SetBinding(Image.SourceProperty, nameof(ViewerImage.Source));
             layout.Children.Add(image);
