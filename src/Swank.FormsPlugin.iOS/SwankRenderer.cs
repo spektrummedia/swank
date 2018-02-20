@@ -5,7 +5,7 @@ namespace Swank.FormsPlugin.iOS
     /// <summary>
     ///     Instance registration class
     /// </summary>
-    public static class Swank
+    public static class SwankRenderer
     {
         /// <summary>
         ///     Init this instance
