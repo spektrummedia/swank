@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Swank.FormsPlugin.Abstractions;
+using Plugin.Swank;
 using Xamarin.Forms;
 
 namespace Swank.FormsPlugin.iOS.Tests

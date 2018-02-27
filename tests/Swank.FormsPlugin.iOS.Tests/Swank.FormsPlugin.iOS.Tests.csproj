@@ -108,15 +108,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Swank.FormsPlugin.Abstractions\Swank.FormsPlugin.Abstractions.csproj">
-      <Project>{66d44a51-488d-4550-8a4f-c6ec7dbe06db}</Project>
-      <Name>Swank.FormsPlugin.Abstractions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Swank.FormsPlugin.iOS\Swank.FormsPlugin.iOS.csproj">
-      <Project>{a284a805-9fb9-4aad-a585-b92cf3071d9f}</Project>
-      <Name>Swank.FormsPlugin.iOS</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
+    <ProjectReference Include="..\..\src\Swank.csproj">
+      <Project>{7e6d20b9-8dc0-4d63-a24e-1826c7bb5c8d}</Project>
+      <Name>Swank</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

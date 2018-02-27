@@ -1,12 +1,12 @@
 ﻿using Xamarin.Forms;
 
-namespace Swank.FormsPlugin.Abstractions
+namespace Plugin.Swank
 {
     public class ViewerImageTemplate : ContentView
     {
         public ViewerImageTemplate()
         {
-            var layout = new StackLayout()
+            var layout = new StackLayout
             {
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 HorizontalOptions = LayoutOptions.CenterAndExpand

@@ -2,13 +2,13 @@
 using CarouselView.FormsPlugin.Abstractions;
 using Xamarin.Forms;
 
-namespace Swank.FormsPlugin.Abstractions
+namespace Plugin.Swank
 {
     public class Viewer : CarouselViewControl
     {
         public new IEnumerable ItemsSource
         {
-            get => (IEnumerable) GetValue(ItemsSourceProperty);
+            get => (IEnumerable)GetValue(ItemsSourceProperty);
             set => SetValue(ItemsSourceProperty, value);
         }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Swank.FormsPlugin.Abstractions
+namespace Plugin.Swank
 {
     public class ObservableObject : INotifyPropertyChanged
     {
