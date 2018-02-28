@@ -1,10 +1,9 @@
 ﻿using Foundation;
-using Plugin.Swank;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-namespace Swank.FormsPlugin.iOS.Tests
+namespace Swank.iOS.Tests
 {
     [Register("AppDelegate")]
     public class AppDelegate : FormsApplicationDelegate
@@ -18,3 +17,5 @@ namespace Swank.FormsPlugin.iOS.Tests
         }
     }
 }
+
+
