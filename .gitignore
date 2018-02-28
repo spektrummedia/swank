@@ -254,5 +254,3 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-Android/
-IOS/

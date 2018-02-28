@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Plugin.Swank;
 using Xamarin.Forms;
 
-namespace Swank.FormsPlugin.iOS.Tests
+namespace Swank.iOS.Tests
 {
     public class App : Xamarin.Forms.Application
     {
