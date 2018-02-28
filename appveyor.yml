@@ -1,4 +1,4 @@
-image: Visual Studio 2015
+image: Visual Studio 2017
 configuration: Release
 
 branches:
@@ -7,12 +7,9 @@ branches:
     - develop
     - feature/new-structure
 
-build:
-  project: Swank.sln
-
-# build_script:
-# - cmd: >-
-#     powershell .\build.ps1 -Target Default -Verbosity diagnostic
+build_script:
+- cmd: >-
+    powershell .\build.ps1 -Target Default -Verbosity diagnostic
     
 artifacts:
 - path: ./src/bin/Release/*.nupkg
