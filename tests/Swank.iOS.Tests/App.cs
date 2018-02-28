@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using Plugin.Swank;
+using Xamarin.Forms;
 
 namespace Swank.iOS.Tests
 {
