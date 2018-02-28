@@ -36,9 +36,7 @@ namespace Plugin.Swank
 #if NETSTANDARD2_0
             return null;
 #else
-#pragma warning disable IDE0022 // Use expression body for methods
             return new SwankImplementation();
-#pragma warning restore IDE0022 // Use expression body for methods
 #endif
         }
 
