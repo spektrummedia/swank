@@ -5,6 +5,7 @@ branches:
   only:
     - master
     - develop
+    - new-structure
 
 build_script:
 - cmd: >-
