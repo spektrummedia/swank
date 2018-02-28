@@ -7,9 +7,12 @@ branches:
     - develop
     - feature/new-structure
 
-build_script:
-- cmd: >-
-    powershell .\build.ps1 -Target Default -Verbosity diagnostic
+build:
+  project: Swank.sln
+
+# build_script:
+# - cmd: >-
+#     powershell .\build.ps1 -Target Default -Verbosity diagnostic
     
 artifacts:
 - path: ./src/bin/Release/*.nupkg
