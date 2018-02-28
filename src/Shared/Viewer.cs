@@ -14,6 +14,7 @@ namespace Plugin.Swank
 
         public Viewer()
         {
+            IsVisible = false;
             Margin = 0;
             Position = 0;
             InterPageSpacing = 10;
