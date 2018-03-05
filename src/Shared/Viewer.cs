@@ -10,7 +10,7 @@ namespace Plugin.Swank
     {
         public new IEnumerable ItemsSource
         {
-            get => (IEnumerable) GetValue(ItemsSourceProperty);
+            get => (IEnumerable)GetValue(ItemsSourceProperty);
             set => SetValue(ItemsSourceProperty, value);
         }
 
@@ -26,17 +26,19 @@ namespace Plugin.Swank
 
         private void OnScrolled(object o, ScrolledEventArgs scrolledEventArgs)
         {
-            Console.WriteLine("OnScrolled");
+            // scrolling
         }
 
         private void OnPositionSelected(object o, PositionSelectedEventArgs positionSelectedEventArgs)
         {
             Console.WriteLine("OnPositionSelected");
             var currentImage = ItemsSource.GetItem(positionSelectedEventArgs.NewValue) as ViewerImage;
-            if (currentImage.Is360)
-            {
-                IsSwipeEnabled = false;
-            }
+        }
+
+        public void SetIsSwipeEnabled(bool isDisabled)
+        {
+            Console.WriteLine($"SetIsSwipeEnabled: {isDisabled}");
+            IsSwipeEnabled = isDisabled;
         }
     }
 }
