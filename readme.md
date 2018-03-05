@@ -10,5 +10,5 @@ Xamarin embeddable image viewer with 360 degree support
 In your iOS project call:
 
 ```
-Swank.Init();
+SwankRenderer.Init();
 ```

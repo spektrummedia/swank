@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace Swank.FormsPlugin.Abstractions
+namespace Plugin.Swank
 {
     public class ViewerImage : ObservableObject
     {
