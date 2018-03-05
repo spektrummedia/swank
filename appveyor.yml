@@ -5,13 +5,14 @@ branches:
   only:
     - master
     - develop
+    - feature/new-structure
 
 build_script:
 - cmd: >-
     powershell .\build.ps1 -Target Default -Verbosity diagnostic
     
 artifacts:
-- path: ./Build/nuget/*.nupkg
+- path: ./src/bin/Release/*.nupkg
   name: NuGet
 
 deploy:

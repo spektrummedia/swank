@@ -12,27 +12,12 @@ Task("Libraries").Does(()=>
 	});
 });
 
-Task ("NuGet")
-	.IsDependentOn ("Libraries")
-	.Does (() =>
-{
-    if(!DirectoryExists("./Build/nuget/"))
-        CreateDirectory("./Build/nuget");
-        
-	NuGetPack ("./Swank.nuspec", new NuGetPackSettings { 
-		Version = VERSION,
-		OutputDirectory = "./Build/nuget/",
-		BasePath = "./"
-	});	
-});
-
 //Build the component, which build samples, nugets, and libraries
-Task ("Default").IsDependentOn("NuGet");
+Task ("Default").IsDependentOn("Libraries");
 
 Task ("Clean").Does (() => 
 {
 	CleanDirectory ("./component/tools/");
-	CleanDirectories ("./Build/");
 	CleanDirectories ("./**/bin");
 	CleanDirectories ("./**/obj");
 });

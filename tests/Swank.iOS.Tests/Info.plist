@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>Swank.FormsPlugin.iOS.Tests</string>
+	<string>Swank.iOS.Tests</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.Swank.FormsPlugin.iOS.Tests</string>
+	<string>com.duproprio.Swank.iOS.Tests</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -38,7 +38,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>CFBundleName</key>
-	<string>Swank.FormsPlugin.iOS.Tests</string>
 </dict>
 </plist>

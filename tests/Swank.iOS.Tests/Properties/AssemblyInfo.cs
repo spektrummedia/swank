@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Swank.FormsPlugin.iOS.Tests")]
+[assembly: AssemblyTitle("Swank.iOS.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Swank.FormsPlugin.iOS.Tests")]
+[assembly: AssemblyProduct("Swank.iOS.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("93a8617e-0664-4b1d-9f88-3d23d2568800")]
+[assembly: Guid("da8ef525-c0f3-47b4-aad2-55f9c9770aaa")]
 
 // Version information for an assembly consists of the following four values:
 //
