@@ -10,5 +10,20 @@ Xamarin embeddable image viewer with 360 degree support
 In your iOS project call:
 
 ```
-SwankRenderer.Init();
+SwankImplementation.Init();
+```
+
+
+### XAML
+
+First add the xmlns namespace:
+
+```
+xmlns:swank="clr-namespace:Plugin.Swank;assembly=Swank.FormsPlugin"
+```
+
+Then add the xaml:
+
+```
+<swank:Viewer ItemsSource="{Binding Images}" />
 ```
