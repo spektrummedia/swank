@@ -16,13 +16,11 @@ namespace Plugin.Swank
             VerticalOptions = LayoutOptions.CenterAndExpand
         };
 
-        private readonly Layout<View> _stackLayout = new AbsoluteLayout()
+        private readonly Layout<View> _stackLayout = new AbsoluteLayout
         {
             VerticalOptions = LayoutOptions.CenterAndExpand,
             HorizontalOptions = LayoutOptions.CenterAndExpand
         };
-
-        private Size ImageSize;
 
         private double x, y;
 
