@@ -23,7 +23,14 @@ namespace Swank.iOS.Tests
             MainPage = new ContentPage
             {
                 Title = "Swank - iOS",
-                Content = viewer
+                Content = new StackLayout()
+                {
+                    Spacing = 0,
+                    Children =
+                    {
+                        viewer
+                    }
+                }
             };
         }
     }

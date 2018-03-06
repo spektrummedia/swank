@@ -10,12 +10,14 @@ namespace Plugin.Swank
     {
         public new IEnumerable ItemsSource
         {
-            get => (IEnumerable)GetValue(ItemsSourceProperty);
+            get => (IEnumerable) GetValue(ItemsSourceProperty);
             set => SetValue(ItemsSourceProperty, value);
         }
 
         public Viewer()
         {
+            HorizontalOptions = LayoutOptions.FillAndExpand;
+            VerticalOptions = LayoutOptions.FillAndExpand;
             Orientation = CarouselViewOrientation.Horizontal;
             BackgroundColor = Color.Black;
             ShowIndicators = true;
