@@ -42,10 +42,10 @@ namespace Plugin.Swank
         {
             base.OnBindingContextChanged();
             var image = BindingContext as ViewerImage;
-            if (image != null && image.Is360)
-            {
-                Create360Controls(image);
-            }
+            //if (image != null && image.Is360)
+            //{
+            //    Create360Controls(image);
+            //}
         }
 
         private void Create360Controls(ViewerImage image)
