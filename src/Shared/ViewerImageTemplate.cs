@@ -12,7 +12,8 @@ namespace Plugin.Swank
 
         private readonly Image _image = new Image
         {
-            Aspect = Aspect.Fill
+            Aspect = Aspect.AspectFill,
+            VerticalOptions = LayoutOptions.CenterAndExpand
         };
 
         private readonly Layout<View> _stackLayout = new AbsoluteLayout()
@@ -29,6 +30,10 @@ namespace Plugin.Swank
         {
             var currentImage = BindingContext as ViewerImage;
             _image.SetBinding(Image.SourceProperty, nameof(ViewerImage.Source));
+
+            AbsoluteLayout.SetLayoutBounds(_image, new Rectangle(.5, .5, 1, 1));
+            AbsoluteLayout.SetLayoutFlags(_image, AbsoluteLayoutFlags.All);
+
             _stackLayout.Children.Add(_image);
             Content = _stackLayout;
         }
@@ -37,10 +42,10 @@ namespace Plugin.Swank
         {
             base.OnBindingContextChanged();
             var image = BindingContext as ViewerImage;
-            //if (image != null && image.Is360)
-            //{
-            //    Create360Controls(image);
-            //}
+            if (image != null && image.Is360)
+            {
+                Create360Controls(image);
+            }
         }
 
         private void Create360Controls(ViewerImage image)
