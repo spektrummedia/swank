@@ -24,6 +24,7 @@ xmlns:swank="clr-namespace:Plugin.Swank;assembly=Swank.FormsPlugin"
 
 Then add the xaml:
 
-```
-<swank:Viewer ItemsSource="{Binding Images}" />
+```xml
+<!-- ViewerImages = IEnumerable<ViewerImage> -->
+<swank:Viewer ItemsSource="{Binding ViewerImages}" />
 ```
