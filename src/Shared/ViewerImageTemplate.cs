@@ -12,14 +12,13 @@ namespace Plugin.Swank
 
         private readonly Image _image = new Image
         {
-            Aspect = Aspect.AspectFill,
-            VerticalOptions = LayoutOptions.CenterAndExpand
+            HorizontalOptions = LayoutOptions.FillAndExpand
         };
 
-        private readonly Layout<View> _stackLayout = new AbsoluteLayout
+        private readonly Layout<View> _stackLayout = new StackLayout
         {
-            VerticalOptions = LayoutOptions.CenterAndExpand,
-            HorizontalOptions = LayoutOptions.CenterAndExpand
+            HorizontalOptions = LayoutOptions.FillAndExpand,
+            Orientation = StackOrientation.Horizontal
         };
 
         private double x, y;
@@ -28,10 +27,6 @@ namespace Plugin.Swank
         {
             var currentImage = BindingContext as ViewerImage;
             _image.SetBinding(Image.SourceProperty, nameof(ViewerImage.Source));
-
-            AbsoluteLayout.SetLayoutBounds(_image, new Rectangle(.5, .5, 1, 1));
-            AbsoluteLayout.SetLayoutFlags(_image, AbsoluteLayoutFlags.All);
-
             _stackLayout.Children.Add(_image);
             Content = _stackLayout;
         }
