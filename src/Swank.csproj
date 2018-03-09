@@ -20,9 +20,9 @@
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     
-    <PackageLicenseUrl>https://github.com/spektrumgeeks/swank/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/spektrummedia/swank/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://www.nuget.org/packages/Swank.FormsPlugin/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/spektrumgeeks/swank</RepositoryUrl>
+    <RepositoryUrl>https://github.com/spektrummedia/swank</RepositoryUrl>
     <!--<PackageReleaseNotes>RELEASE NOTES</PackageReleaseNotes>-->
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/13052913</PackageIconUrl>
     <PackageTags>xamarin, windows, ios, android, xamarin.forms, plugin, photo, image, viewer, 360</PackageTags>
