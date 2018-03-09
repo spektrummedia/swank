@@ -7,10 +7,10 @@
     <PackageId>Swank.FormsPlugin</PackageId>
     
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <AssemblyVersion>1.1.5</AssemblyVersion>
-    <AssemblyFileVersion>1.1.5</AssemblyFileVersion>
-    <Version>1.1.5</Version>
-    <PackageVersion>1.1.5</PackageVersion>
+    <AssemblyVersion>1.1.6</AssemblyVersion>
+    <AssemblyFileVersion>1.1.6</AssemblyFileVersion>
+    <Version>1.1.6</Version>
+    <PackageVersion>1.1.6</PackageVersion>
     <PackOnBuild>true</PackOnBuild>
     <NeutralLanguage>en</NeutralLanguage>
     <LangVersion>default</LangVersion>
