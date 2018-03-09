@@ -7,10 +7,10 @@
     <PackageId>Swank.FormsPlugin</PackageId>
     
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <AssemblyVersion>1.1.5</AssemblyVersion>
-    <AssemblyFileVersion>1.1.5</AssemblyFileVersion>
-    <Version>1.1.5</Version>
-    <PackageVersion>1.1.5</PackageVersion>
+    <AssemblyVersion>1.1.6</AssemblyVersion>
+    <AssemblyFileVersion>1.1.6</AssemblyFileVersion>
+    <Version>1.1.6</Version>
+    <PackageVersion>1.1.6</PackageVersion>
     <PackOnBuild>true</PackOnBuild>
     <NeutralLanguage>en</NeutralLanguage>
     <LangVersion>default</LangVersion>
@@ -20,9 +20,9 @@
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     
-    <PackageLicenseUrl>https://github.com/spektrumgeeks/swank/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/spektrummedia/swank/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://www.nuget.org/packages/Swank.FormsPlugin/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/spektrumgeeks/swank</RepositoryUrl>
+    <RepositoryUrl>https://github.com/spektrummedia/swank</RepositoryUrl>
     <!--<PackageReleaseNotes>RELEASE NOTES</PackageReleaseNotes>-->
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/13052913</PackageIconUrl>
     <PackageTags>xamarin, windows, ios, android, xamarin.forms, plugin, photo, image, viewer, 360</PackageTags>
