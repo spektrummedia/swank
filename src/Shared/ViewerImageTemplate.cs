@@ -90,10 +90,15 @@ namespace Plugin.Swank
                     VerticalOptions = LayoutOptions.FillAndExpand,
                     GestureRecognizers = { _pan }
                 };
+
+                var filePath = (BindingContext as ViewerImage).FilePath;
+
                 _panorama = new PanoramaView
                 {
                     FieldOfView = 75.0f,
-                    Image = new PanoramaFileSystemImageSource((BindingContext as ViewerImage).FilePath),
+                    Image = filePath.Contains("http")
+                        ? (PanoramaImageSource)new PanoramaUriImageSource(new Uri(filePath))
+                        : (PanoramaImageSource)new PanoramaFileSystemImageSource(filePath),
                     Yaw = 0,
                     Pitch = 0,
                     BackgroundColor = Color.Aquamarine,
