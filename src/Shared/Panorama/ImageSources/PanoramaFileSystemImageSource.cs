@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Plugin.Swank.Panorama.ImageSources
@@ -18,6 +19,11 @@ namespace Plugin.Swank.Panorama.ImageSources
         {
             if (_imageStream == null)
             {
+                if (!File.Exists(_imageFilePath))
+                {
+                    throw new Exception($"File {_imageFilePath} do not exists!");
+                }
+
                 _imageStream = File.Open(_imageFilePath, FileMode.Open, FileAccess.Read);
             }
 
