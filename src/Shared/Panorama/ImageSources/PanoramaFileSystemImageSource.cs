@@ -24,7 +24,7 @@ namespace Plugin.Swank.Panorama.ImageSources
                     throw new Exception($"File {_imageFilePath} do not exists!");
                 }
 
-                _imageStream = File.Open(_imageFilePath, FileMode.Open, FileAccess.Read);
+                _imageStream = File.OpenRead(_imageFilePath);
             }
 
             return _imageStream;
