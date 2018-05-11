@@ -25,6 +25,7 @@ namespace Swank.iOS.Tests
                     new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/400x300"))},
                     new ViewerImage
                     {
+                        FilePath = "https://d36tnp772eyphs.cloudfront.net/blogs/1/2006/11/360-panorama-matador-seo.jpg",
                         Source = ImageSource.FromUri(new Uri("https://d36tnp772eyphs.cloudfront.net/blogs/1/2006/11/360-panorama-matador-seo.jpg")),
                         Is360 = true,
                         Toggle360ModeText = "Trigger immersion"
