@@ -17,11 +17,18 @@ namespace Swank.iOS.Tests
                     new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/1700x1275"))},
                     new ViewerImage
                     {
-                        Source = ImageSource.FromUri(new Uri("https://d36tnp772eyphs.cloudfront.net/blogs/1/2006/11/360-panorama-matador-seo.jpg")),
+                        FilePath = "360-panorama-matador-seo.jpg",
+                        Source = ImageSource.FromFile("360-panorama-matador-seo.jpg"),
                         Is360 = true,
-                        Toggle360ModeText = "TRIGGER"
+                        Toggle360ModeText = "Trigger immersion"
                     },
                     new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/400x300"))},
+                    new ViewerImage
+                    {
+                        Source = ImageSource.FromUri(new Uri("https://d36tnp772eyphs.cloudfront.net/blogs/1/2006/11/360-panorama-matador-seo.jpg")),
+                        Is360 = true,
+                        Toggle360ModeText = "Trigger immersion"
+                    },
                     new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/900x100"))}
                 },
                 

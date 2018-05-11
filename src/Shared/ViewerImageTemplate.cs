@@ -93,8 +93,7 @@ namespace Plugin.Swank
                 _panorama = new PanoramaView
                 {
                     FieldOfView = 75.0f,
-                    Image = new PanoramaUriImageSource(new Uri(
-                        "https://d36tnp772eyphs.cloudfront.net/blogs/1/2006/11/360-panorama-matador-seo.jpg")),
+                    Image = new PanoramaFileSystemImageSource((BindingContext as ViewerImage).FilePath),
                     Yaw = 0,
                     Pitch = 0,
                     BackgroundColor = Color.Aquamarine,

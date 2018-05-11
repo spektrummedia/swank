@@ -11,6 +11,13 @@ namespace Plugin.Swank
             set => SetProperty(ref _source, value);
         }
 
+        private string _filePath;
+        public string FilePath
+        {
+            get => _filePath;
+            set => SetProperty(ref _filePath, value);
+        }
+
         private bool _is360;
         public bool Is360
         {
