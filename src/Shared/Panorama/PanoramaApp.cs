@@ -2,11 +2,11 @@
 using Urho.IO;
 using Urho.Urho2D;
 
-namespace Plugin.Swank._360Controls
+namespace Plugin.Swank.Panorama
 {
-    public class PanoramaUrhoApp : Application
+    public class PanoramaApp : Application
     {
-        public PanoramaUrhoApp(ApplicationOptions options = null) : base(options)
+        public PanoramaApp(ApplicationOptions options = null) : base(options)
         {
         }
 

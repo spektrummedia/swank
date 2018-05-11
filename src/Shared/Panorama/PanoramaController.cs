@@ -1,18 +1,20 @@
 ﻿using System.IO;
+using Plugin.Swank.Panorama.ImageSources;
 using Urho;
 using Urho.Forms;
 using Xamarin.Forms;
+using View = Xamarin.Forms.View;
 
-namespace Plugin.Swank._360Controls
+namespace Plugin.Swank.Panorama
 {
     public class PanoramaController
     {
-        PanoramaImageSource _imageSource;
-        float _fieldOfView, _yaw, _pitch;
-        UrhoSurface _urhoSurface;
-        PanoramaUrhoApp _urhoApp;
+        private float _fieldOfView, _yaw, _pitch;
+        private PanoramaImageSource _imageSource;
+        private PanoramaApp _app;
+        private UrhoSurface _urhoSurface;
 
-        public Xamarin.Forms.View GetView()
+        public View GetView()
         {
             if (_urhoSurface == null)
             {
@@ -63,9 +65,9 @@ namespace Plugin.Swank._360Controls
             // Enqueue the creation such that UrhoSharp renderers are initialized
             Device.BeginInvokeOnMainThread(async () =>
             {
-                if (_urhoApp == null)
+                if (_app == null)
                 {
-                    _urhoApp = await _urhoSurface.Show<PanoramaUrhoApp>(new Urho.ApplicationOptions(assetsFolder: null) // "Data"
+                    _app = await _urhoSurface.Show<PanoramaApp>(new ApplicationOptions(null) // "Data"
                     {
                         Orientation = ApplicationOptions.OrientationType.LandscapeAndPortrait
                     });
@@ -78,83 +80,71 @@ namespace Plugin.Swank._360Controls
             });
         }
 
-        Xamarin.Forms.View CreateView()
+        private View CreateView()
         {
-            var urhoSurface = new UrhoSurface()
+            var urhoSurface = new UrhoSurface
             {
-                VerticalOptions = LayoutOptions.FillAndExpand
-                //InputTransparent = true
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                InputTransparent = true
             };
 
             return urhoSurface;
         }
 
-        async void UpdateImage()
+        private async void UpdateImage()
         {
-            if (_imageSource == null || _urhoApp == null)
+            if (_imageSource == null || _app == null)
             {
                 return;
             }
 
-            Stream imageStream = await _imageSource.GetStreamAsync();
+            var imageStream = await _imageSource.GetStreamAsync();
 
             if (imageStream == null)
             {
                 return;
             }
 
-            _urhoApp.SetImage(new MemoryBuffer(GetMemoryStream(imageStream)));
+            _app.SetImage(new MemoryBuffer(GetMemoryStream(imageStream)));
         }
 
-        void UpdateFieldOfView()
+        private void UpdateFieldOfView()
         {
-            if (_urhoApp != null)
+            if (_app != null)
             {
-                _urhoApp.SetFieldOfView(_fieldOfView);
+                _app.SetFieldOfView(_fieldOfView);
             }
         }
 
-        void UpdateYaw()
+        private void UpdateYaw()
         {
-            if (_urhoApp != null)
+            if (_app != null)
             {
-                _urhoApp.SetYaw(_yaw);
+                _app.SetYaw(_yaw);
             }
         }
 
-        void UpdatePitch()
+        private void UpdatePitch()
         {
-            if (_urhoApp != null)
+            if (_app != null)
             {
-                _urhoApp.SetPitch(_pitch);
+                _app.SetPitch(_pitch);
             }
         }
 
-        public void SetGesture(IGestureRecognizer gesture)
-        {
-            if (_urhoSurface != null)
-            {
-                _urhoSurface.GestureRecognizers.Add(gesture);
-            }
-        }
-
-        static MemoryStream GetMemoryStream(Stream stream)
+        private static MemoryStream GetMemoryStream(Stream stream)
         {
             if (stream is MemoryStream)
             {
                 return stream as MemoryStream;
             }
-            else
-            {
-                // Depending on stream size, this can be expensive operation
-                // Therefore it is preferred that the stream is actually a MemoryStream
-                var ms = new MemoryStream();
 
-                stream.CopyTo(ms);
-                ms.Position = 0;
+            var ms = new MemoryStream();
 
-                return ms;
-            }
+            stream.CopyTo(ms);
+            ms.Position = 0;
+
+            return ms;
         }
     }
 }

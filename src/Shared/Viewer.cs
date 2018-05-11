@@ -8,7 +8,7 @@ namespace Plugin.Swank
     {
         public new IEnumerable ItemsSource
         {
-            get => (IEnumerable) GetValue(ItemsSourceProperty);
+            get => (IEnumerable)GetValue(ItemsSourceProperty);
             set => SetValue(ItemsSourceProperty, value);
         }
 
@@ -22,9 +22,9 @@ namespace Plugin.Swank
             ItemTemplate = new DataTemplate(typeof(ViewerImageTemplate));
         }
 
-        public void SetIsSwipeEnabled(bool isDisabled)
+        public void ToggleIsSwipeEnabled()
         {
-            IsSwipeEnabled = isDisabled;
+            IsSwipeEnabled = !IsSwipeEnabled;
         }
     }
 }

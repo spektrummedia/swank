@@ -68,10 +68,10 @@
 
 
   <ItemGroup>
-    <None Remove="Shared\360Controls\PanoramaImageSource.cs" />
-    <None Remove="Shared\360Controls\PanoramaUrhoApp.cs" />
-    <None Remove="Shared\360Controls\PanoramaUriImageSource.cs" />
-    <None Remove="Shared\360Controls\PanoramaView.cs" />
+    <None Remove="Shared\Panorama\PanoramaApp.cs" />
+    <None Remove="Shared\Panorama\PanoramaImageSource.cs" />
+    <None Remove="Shared\Panorama\PanoramaUriImageSource.cs" />
+    <None Remove="Shared\Panorama\PanoramaView.cs" />
     <None Remove="Shared\ObservableObject.cs" />
     <None Remove="Shared\Viewer.cs" />
     <None Remove="Shared\ViewerImage.cs" />

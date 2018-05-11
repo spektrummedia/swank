@@ -3,7 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Plugin.Swank._360Controls
+namespace Plugin.Swank.Panorama.ImageSources
 {
     public class PanoramaUriImageSource : PanoramaImageSource
     {

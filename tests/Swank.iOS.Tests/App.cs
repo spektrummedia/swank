@@ -14,11 +14,17 @@ namespace Swank.iOS.Tests
             {
                 ItemsSource = new List<ViewerImage>
                 {
-                    //new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/1700x1275"))},
-                    new ViewerImage {Source = ImageSource.FromUri(new Uri("https://d36tnp772eyphs.cloudfront.net/blogs/1/2006/11/360-panorama-matador-seo.jpg")), Is360 = true},
-                    //new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/400x300"))},
-                    //new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/900x100"))}
-                }
+                    new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/1700x1275"))},
+                    new ViewerImage
+                    {
+                        Source = ImageSource.FromUri(new Uri("https://d36tnp772eyphs.cloudfront.net/blogs/1/2006/11/360-panorama-matador-seo.jpg")),
+                        Is360 = true,
+                        Toggle360ModeText = "TRIGGER"
+                    },
+                    new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/400x300"))},
+                    new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/900x100"))}
+                },
+                
             };
 
             MainPage = new ContentPage

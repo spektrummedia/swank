@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace Plugin.Swank._360Controls
+namespace Plugin.Swank.Panorama.ImageSources
 {
     public abstract class PanoramaImageSource
     {
