@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Plugin.Swank.Panorama;
+using Plugin.Swank.Panorama.ImageSources;
 using Xamarin.Forms;
 
 namespace Plugin.Swank
@@ -7,21 +9,26 @@ namespace Plugin.Swank
     public class ViewerImageTemplate : ContentView
     {
         private Viewer Viewer => Parent as Viewer;
-        public int width => 4000;
-        public int height => 2000;
 
         private readonly Image _image = new Image
         {
-            HorizontalOptions = LayoutOptions.FillAndExpand
+            HorizontalOptions = LayoutOptions.FillAndExpand,
+            VerticalOptions = LayoutOptions.FillAndExpand,
+            Aspect = Aspect.AspectFit
         };
 
         private readonly Layout<View> _stackLayout = new StackLayout
         {
             HorizontalOptions = LayoutOptions.FillAndExpand,
-            Orientation = StackOrientation.Horizontal
+            VerticalOptions = LayoutOptions.FillAndExpand,
+            Orientation = StackOrientation.Vertical,
+            BackgroundColor = Color.Black
         };
 
-        private double x, y;
+        private readonly PanGestureRecognizer _pan = new PanGestureRecognizer();
+
+        private PanoramaView _panorama;
+        private StackLayout _panoramaLayout;
 
         public ViewerImageTemplate()
         {
@@ -35,64 +42,96 @@ namespace Plugin.Swank
         {
             base.OnBindingContextChanged();
             var image = BindingContext as ViewerImage;
-            //if (image != null && image.Is360)
-            //{
-            //    Create360Controls(image);
-            //}
+            if (image != null && image.Is360)
+            {
+                Create360Controls(image);
+            }
         }
 
         private void Create360Controls(ViewerImage image)
         {
             // Lock-in/lock-out
-            var isBlockedSwitch = new Switch();
-            isBlockedSwitch.IsToggled = false;
-            isBlockedSwitch.Toggled += IsBlockedSwitchOnToggled;
+            var immersionSwitch = new Switch()
+            {
+                IsToggled = false,
+                HorizontalOptions = LayoutOptions.End,
+                Margin = new Thickness(0, -3, 0, 0)
+            };
+            immersionSwitch.Toggled += IsBlockedSwitchOnToggled;
+
+            // Label
+            var immersionSwitchText = new Label()
+            {
+                Text = (BindingContext as ViewerImage).Toggle360ModeText,
+                TextColor = Color.White,
+                HorizontalOptions = LayoutOptions.EndAndExpand,
+                FontSize = 22,
+                Margin = new Thickness(0, 0, 5, 0)
+            };
 
             // Add components to stacklayout
-            _stackLayout.Children.Add(isBlockedSwitch);
-        }
-
-        private void OnDrag(object sender, PanUpdatedEventArgs e)
-        {
-            Console.WriteLine($"OnDrag X:{e.TotalX} Y:{e.TotalY}");
-
-            switch (e.StatusType)
+            _stackLayout.Children.Insert(1, new StackLayout()
             {
-                case GestureStatus.Running:
-                    // Translate and ensure we don't pan beyond the wrapped user interface element bounds.
-                    Content.TranslationX =
-                        Math.Max(Math.Min(0, x + e.TotalX), -Math.Abs(Content.Width - width));
-                    Content.TranslationY =
-                        Math.Max(Math.Min(0, y + e.TotalY), -Math.Abs(Content.Height - height));
-                    break;
-
-                case GestureStatus.Completed:
-                    // Store the translation applied during the pan
-                    x = Content.TranslationX;
-                    y = Content.TranslationY;
-                    break;
-            }
+                Orientation = StackOrientation.Horizontal,
+                Children = { immersionSwitchText, immersionSwitch }
+            });
         }
 
         private void IsBlockedSwitchOnToggled(object sender, ToggledEventArgs toggledEventArgs)
         {
-            Viewer.SetIsSwipeEnabled(toggledEventArgs.Value);
             if (toggledEventArgs.Value)
             {
-                var panGesture = new PanGestureRecognizer();
-                panGesture.PanUpdated += OnDrag;
-                _stackLayout.GestureRecognizers.Add(panGesture);
-                _image.Aspect = Aspect.Fill;
-                _stackLayout.Scale = 2;
-                Content.TranslationX = width / 2;
-                Content.TranslationY = height / 2;
-            }
-            else if (_stackLayout.GestureRecognizers.Any())
-            {
-                foreach (var gesture in _stackLayout.GestureRecognizers.ToArray())
+                _image.IsVisible = false;
+                _pan.PanUpdated += OnPanUpdated;
+
+                _panoramaLayout = new StackLayout
                 {
-                    _stackLayout.GestureRecognizers.Remove(gesture);
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    VerticalOptions = LayoutOptions.FillAndExpand,
+                    GestureRecognizers = { _pan }
+                };
+                _panorama = new PanoramaView
+                {
+                    FieldOfView = 75.0f,
+                    Image = new PanoramaFileSystemImageSource((BindingContext as ViewerImage).FilePath),
+                    Yaw = 0,
+                    Pitch = 0,
+                    BackgroundColor = Color.Aquamarine,
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    VerticalOptions = LayoutOptions.FillAndExpand,
+                    InputTransparent = true
+                };
+                _panoramaLayout.Children.Add(_panorama);
+                _stackLayout.Children.Insert(0, _panoramaLayout);
+            }
+            else
+            {
+                _panoramaLayout.IsVisible = false;
+                _image.IsVisible = true;
+
+                if (_panoramaLayout.GestureRecognizers.Any())
+                {
+                    _pan.PanUpdated -= OnPanUpdated;
+                    foreach (var gesture in _panoramaLayout.GestureRecognizers.ToArray())
+                    {
+                        _panoramaLayout.GestureRecognizers.Remove(gesture);
+                    }
                 }
+
+                _panoramaLayout.Children.Remove(_panorama);
+                _stackLayout.Children.Remove(_panoramaLayout);
+            }
+            Viewer.ToggleIsSwipeEnabled();
+        }
+
+        private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            switch (e.StatusType)
+            {
+                case GestureStatus.Running:
+                    _panorama.Yaw += (float)(e.TotalX / 100);
+                    _panorama.Pitch += (float)(e.TotalY / 100);
+                    break;
             }
         }
     }
