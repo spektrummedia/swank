@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using Plugin.Swank.Panorama.ImageSources;
 using Urho;
 using Urho.Forms;
@@ -17,7 +18,7 @@ namespace Plugin.Swank.Panorama
 
         public void Dispose()
         {
-            _app.Exit();
+            _app?.Exit();
         }
 
         public View GetView()
@@ -68,11 +69,13 @@ namespace Plugin.Swank.Panorama
 
         public void Initialize()
         {
-            // Enqueue the creation such that UrhoSharp renderers are initialized
             Device.BeginInvokeOnMainThread(async () =>
             {
                 if (_app == null && _urhoSurface != null)
                 {
+                    // sometimes, the scene is not big enough. we wait completion
+                    await Task.Delay(500);
+
                     _app = await _urhoSurface.Show<PanoramaApp>(new ApplicationOptions(null) // "Data"
                     {
                         Orientation = ApplicationOptions.OrientationType.LandscapeAndPortrait
@@ -91,7 +94,8 @@ namespace Plugin.Swank.Panorama
             var urhoSurface = new UrhoSurface
             {
                 VerticalOptions = LayoutOptions.FillAndExpand,
-                InputTransparent = true
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                InputTransparent = true,
             };
 
             return urhoSurface;
