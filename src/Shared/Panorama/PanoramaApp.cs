@@ -1,4 +1,5 @@
-﻿using Urho;
+﻿using System;
+using Urho;
 using Urho.IO;
 using Urho.Urho2D;
 
@@ -19,10 +20,18 @@ namespace Plugin.Swank.Panorama
                 InvokeOnMain(() =>
                 {
                     var image = new Urho.Resources.Image();
-                    var b = image.Load(imageBuff);
+                    var isLoaded = image.Load(imageBuff);
+                    if (!isLoaded)
+                    {
+                        throw new Exception("This image cannot be load by Swank");
+                    }
 
                     var texture = new Texture2D();
-                    texture.SetData(image, false);
+                    var isTextureLoaded = texture.SetData(image, false);
+                    if (!isTextureLoaded)
+                    {
+                        throw new Exception("This texture cannot be load by Swank");
+                    }
 
                     StaticModel modelObject = sphere.GetComponent<StaticModel>();
                     sphere.GetComponent<StaticModel>().GetMaterial(0).SetTexture(TextureUnit.Diffuse, texture);
