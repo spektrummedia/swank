@@ -1,9 +1,10 @@
-﻿using Plugin.Swank.Panorama.ImageSources;
+﻿using System;
+using Plugin.Swank.Panorama.ImageSources;
 using Xamarin.Forms;
 
 namespace Plugin.Swank.Panorama
 {
-    public class PanoramaView : ContentView
+    public class PanoramaView : ContentView, IDisposable
     {
         public PanoramaImageSource Image
         {
@@ -45,40 +46,57 @@ namespace Plugin.Swank.Panorama
             BindableProperty.Create(nameof(Pitch), typeof(float), typeof(PanoramaView), 0.0f, BindingMode.OneWay, null,
                 (s, oldValue, newValue) => (s as PanoramaView).PitchPropertyChanged());
 
-        private readonly PanoramaController _panoramaControl;
+        private WeakReference<PanoramaController> _panoramaControl;
+        public PanoramaController PanoramaControl
+        {
+            get
+            {
+                PanoramaController control = null;
+                _panoramaControl.TryGetTarget(out control);
+                return control;
+            }
+            set => _panoramaControl = new WeakReference<PanoramaController>(value);
+        }
 
         public PanoramaView()
         {
-            _panoramaControl = new PanoramaController();
+            PanoramaControl = new PanoramaController();
         }
 
         protected override void OnParentSet()
         {
             base.OnParentSet();
 
-            Content = _panoramaControl.GetView();
-
-            _panoramaControl.Initialize();
+            if (PanoramaControl != null)
+            {
+                Content = PanoramaControl.GetView();
+                PanoramaControl.Initialize();
+            }
         }
 
         private void ImagePropertyChanged()
         {
-            _panoramaControl.SetImage(Image);
+            PanoramaControl.SetImage(Image);
         }
 
         private void FieldOfViewPropertyChanged()
         {
-            _panoramaControl.SetFieldOfView(FieldOfView);
+            PanoramaControl.SetFieldOfView(FieldOfView);
         }
 
         private void YawPropertyChanged()
         {
-            _panoramaControl.SetYaw(Yaw);
+            PanoramaControl.SetYaw(Yaw);
         }
 
         private void PitchPropertyChanged()
         {
-            _panoramaControl.SetPitch(Pitch);
+            PanoramaControl.SetPitch(Pitch);
+        }
+
+        public void Dispose()
+        {
+            PanoramaControl?.Dispose();
         }
     }
 }
