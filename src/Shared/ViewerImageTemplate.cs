@@ -123,6 +123,7 @@ namespace Plugin.Swank
                     }
                 }
 
+                _panorama?.Dispose();
                 _panoramaLayout.Children.Remove(_panorama);
                 _stackLayout.Children.Remove(_panoramaLayout);
             }
