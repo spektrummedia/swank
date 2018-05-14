@@ -24,7 +24,12 @@ namespace Plugin.Swank.Panorama.ImageSources
                     throw new Exception($"File {_imageFilePath} do not exists!");
                 }
 
-                _imageStream = File.OpenRead(_imageFilePath);
+                // https://forums.xamarin.com/discussion/comment/214828/#Comment_214828
+                _imageStream = new MemoryStream(ImageResizer.ResizeImage(
+                    File.ReadAllBytes(_imageFilePath), 
+                    2048, 
+                    1024)
+                );
             }
 
             return _imageStream;
