@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Plugin.Swank.Panorama.ImageSources;
 using Urho;
 using Urho.Forms;
@@ -7,12 +8,17 @@ using View = Xamarin.Forms.View;
 
 namespace Plugin.Swank.Panorama
 {
-    public class PanoramaController
+    public class PanoramaController : IDisposable
     {
+        private PanoramaApp _app;
         private float _fieldOfView, _yaw, _pitch;
         private PanoramaImageSource _imageSource;
-        private PanoramaApp _app;
         private UrhoSurface _urhoSurface;
+
+        public void Dispose()
+        {
+            _app.Exit();
+        }
 
         public View GetView()
         {
@@ -65,7 +71,7 @@ namespace Plugin.Swank.Panorama
             // Enqueue the creation such that UrhoSharp renderers are initialized
             Device.BeginInvokeOnMainThread(async () =>
             {
-                if (_app == null)
+                if (_app == null && _urhoSurface != null)
                 {
                     _app = await _urhoSurface.Show<PanoramaApp>(new ApplicationOptions(null) // "Data"
                     {
@@ -99,7 +105,6 @@ namespace Plugin.Swank.Panorama
             }
 
             var imageStream = await _imageSource.GetStreamAsync();
-
             if (imageStream == null)
             {
                 return;
