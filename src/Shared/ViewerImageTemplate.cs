@@ -86,8 +86,8 @@ namespace Plugin.Swank
 
                 _panoramaLayout = new StackLayout
                 {
-                    HorizontalOptions = LayoutOptions.FillAndExpand,
-                    VerticalOptions = LayoutOptions.FillAndExpand,
+                    HeightRequest = _image.Height,
+                    WidthRequest = _image.Width,
                     GestureRecognizers = {_pan}
                 };
 
