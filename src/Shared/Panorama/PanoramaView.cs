@@ -46,17 +46,7 @@ namespace Plugin.Swank.Panorama
             BindableProperty.Create(nameof(Pitch), typeof(float), typeof(PanoramaView), 0.0f, BindingMode.OneWay, null,
                 (s, oldValue, newValue) => (s as PanoramaView).PitchPropertyChanged());
 
-        private WeakReference<PanoramaController> _panoramaControl;
-        public PanoramaController PanoramaControl
-        {
-            get
-            {
-                PanoramaController control = null;
-                _panoramaControl.TryGetTarget(out control);
-                return control;
-            }
-            set => _panoramaControl = new WeakReference<PanoramaController>(value);
-        }
+        public PanoramaController PanoramaControl { get; set; }
 
         public PanoramaView()
         {
@@ -76,22 +66,34 @@ namespace Plugin.Swank.Panorama
 
         private void ImagePropertyChanged()
         {
-            PanoramaControl.SetImage(Image);
+            if (PanoramaControl != null)
+            {
+                PanoramaControl.SetImage(Image);
+            }
         }
 
         private void FieldOfViewPropertyChanged()
         {
-            PanoramaControl.SetFieldOfView(FieldOfView);
+            if (PanoramaControl != null)
+            {
+                PanoramaControl.SetFieldOfView(FieldOfView);
+            }
         }
 
         private void YawPropertyChanged()
         {
-            PanoramaControl.SetYaw(Yaw);
+            if (PanoramaControl != null)
+            {
+                PanoramaControl.SetYaw(Yaw);
+            }
         }
 
         private void PitchPropertyChanged()
         {
-            PanoramaControl.SetPitch(Pitch);
+            if (PanoramaControl != null)
+            {
+                PanoramaControl.SetPitch(Pitch);
+            }
         }
 
         public void Dispose()
