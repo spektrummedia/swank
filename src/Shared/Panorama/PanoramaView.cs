@@ -99,6 +99,7 @@ namespace Plugin.Swank.Panorama
         public void Dispose()
         {
             _paranoramaController?.Dispose();
+            _paranoramaController = null;
         }
     }
 }
