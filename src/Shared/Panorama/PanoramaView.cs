@@ -46,57 +46,60 @@ namespace Plugin.Swank.Panorama
             BindableProperty.Create(nameof(Pitch), typeof(float), typeof(PanoramaView), 0.0f, BindingMode.OneWay, null,
                 (s, oldValue, newValue) => (s as PanoramaView).PitchPropertyChanged());
 
-        private WeakReference<PanoramaController> _panoramaControl;
-        public PanoramaController PanoramaControl
-        {
-            get
-            {
-                PanoramaController control = null;
-                _panoramaControl.TryGetTarget(out control);
-                return control;
-            }
-            set => _panoramaControl = new WeakReference<PanoramaController>(value);
-        }
+        private PanoramaController _paranoramaController { get; set; }
 
         public PanoramaView()
         {
-            PanoramaControl = new PanoramaController();
+            _paranoramaController = new PanoramaController();
         }
 
         protected override void OnParentSet()
         {
             base.OnParentSet();
 
-            if (PanoramaControl != null)
+            if (_paranoramaController != null)
             {
-                Content = PanoramaControl.GetView();
-                PanoramaControl.Initialize();
+                Content = _paranoramaController.GetView();
+                _paranoramaController.Initialize();
             }
         }
 
         private void ImagePropertyChanged()
         {
-            PanoramaControl.SetImage(Image);
+            if (_paranoramaController != null)
+            {
+                _paranoramaController.SetImage(Image);
+            }
         }
 
         private void FieldOfViewPropertyChanged()
         {
-            PanoramaControl.SetFieldOfView(FieldOfView);
+            if (_paranoramaController != null)
+            {
+                _paranoramaController.SetFieldOfView(FieldOfView);
+            }
         }
 
         private void YawPropertyChanged()
         {
-            PanoramaControl.SetYaw(Yaw);
+            if (_paranoramaController != null)
+            {
+                _paranoramaController.SetYaw(Yaw);
+            }
         }
 
         private void PitchPropertyChanged()
         {
-            PanoramaControl.SetPitch(Pitch);
+            if (_paranoramaController != null)
+            {
+                _paranoramaController.SetPitch(Pitch);
+            }
         }
 
         public void Dispose()
         {
-            PanoramaControl?.Dispose();
+            _paranoramaController?.Dispose();
+            _paranoramaController = null;
         }
     }
 }

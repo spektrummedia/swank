@@ -17,6 +17,8 @@ namespace Plugin.Swank
             Aspect = Aspect.AspectFit
         };
 
+        private readonly PanGestureRecognizer _pan = new PanGestureRecognizer();
+
         private readonly Layout<View> _stackLayout = new StackLayout
         {
             HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -24,8 +26,6 @@ namespace Plugin.Swank
             Orientation = StackOrientation.Vertical,
             BackgroundColor = Color.Black
         };
-
-        private readonly PanGestureRecognizer _pan = new PanGestureRecognizer();
 
         private PanoramaView _panorama;
         private StackLayout _panoramaLayout;
@@ -51,7 +51,7 @@ namespace Plugin.Swank
         private void Create360Controls(ViewerImage image)
         {
             // Lock-in/lock-out
-            var immersionSwitch = new Switch()
+            var immersionSwitch = new Switch
             {
                 IsToggled = false,
                 HorizontalOptions = LayoutOptions.End,
@@ -60,7 +60,7 @@ namespace Plugin.Swank
             immersionSwitch.Toggled += IsBlockedSwitchOnToggled;
 
             // Label
-            var immersionSwitchText = new Label()
+            var immersionSwitchText = new Label
             {
                 Text = (BindingContext as ViewerImage).Toggle360ModeText,
                 TextColor = Color.White,
@@ -70,10 +70,10 @@ namespace Plugin.Swank
             };
 
             // Add components to stacklayout
-            _stackLayout.Children.Insert(1, new StackLayout()
+            _stackLayout.Children.Insert(1, new StackLayout
             {
                 Orientation = StackOrientation.Horizontal,
-                Children = { immersionSwitchText, immersionSwitch }
+                Children = {immersionSwitchText, immersionSwitch}
             });
         }
 
@@ -88,7 +88,7 @@ namespace Plugin.Swank
                 {
                     HorizontalOptions = LayoutOptions.FillAndExpand,
                     VerticalOptions = LayoutOptions.FillAndExpand,
-                    GestureRecognizers = { _pan }
+                    GestureRecognizers = {_pan}
                 };
 
                 var filePath = (BindingContext as ViewerImage).FilePath;
@@ -97,8 +97,8 @@ namespace Plugin.Swank
                 {
                     FieldOfView = 75.0f,
                     Image = filePath.Contains("http")
-                        ? (PanoramaImageSource)new PanoramaUriImageSource(new Uri(filePath))
-                        : (PanoramaImageSource)new PanoramaFileSystemImageSource(filePath),
+                        ? new PanoramaUriImageSource(new Uri(filePath))
+                        : (PanoramaImageSource) new PanoramaFileSystemImageSource(filePath),
                     Yaw = 0,
                     Pitch = 0,
                     BackgroundColor = Color.Aquamarine,
@@ -127,6 +127,7 @@ namespace Plugin.Swank
                 _panoramaLayout.Children.Remove(_panorama);
                 _stackLayout.Children.Remove(_panoramaLayout);
             }
+
             Viewer.ToggleIsSwipeEnabled();
         }
 
@@ -135,9 +136,37 @@ namespace Plugin.Swank
             switch (e.StatusType)
             {
                 case GestureStatus.Running:
-                    _panorama.Yaw += (float)(e.TotalX / 100);
-                    _panorama.Pitch += (float)(e.TotalY / 100);
+                    if (_panorama != null)
+                    {
+                        ComputeYaw(e.TotalX);
+                        ComputePitch(e.TotalY);
+                    }
+
                     break;
+            }
+        }
+
+        private void ComputeYaw(double totalX)
+        {
+            if (totalX == 0)
+            {
+                return;
+            }
+
+            _panorama.Yaw += (float) (totalX / 100);
+        }
+
+        private void ComputePitch(double totalY)
+        {
+            if (totalY == 0)
+            {
+                return;
+            }
+
+            var newPitch = _panorama.Pitch + (float) (totalY / 100);
+            if (newPitch <= 40 && newPitch >= -40)
+            {
+                _panorama.Pitch = newPitch;
             }
         }
     }
