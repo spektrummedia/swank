@@ -1,3 +1,5 @@
+<p align="left"><img src="logo/vertical.png" alt="swank" height="200px"></p>
+
 # Swank Plugin for Xamarin.Forms
 
 [![Build status](https://ci.appveyor.com/api/projects/status/bu21xmnmadm0crsn?svg=true)](https://ci.appveyor.com/project/spektrum/swank)
