@@ -81,14 +81,15 @@ namespace Plugin.Swank
         {
             if (toggledEventArgs.Value)
             {
-                _image.IsVisible = false;
                 _pan.PanUpdated += OnPanUpdated;
-
                 _panoramaLayout = new StackLayout
                 {
-                    HeightRequest = _image.Height,
+                    HeightRequest = _image.Width / 2,
                     WidthRequest = _image.Width,
-                    GestureRecognizers = {_pan}
+                    VerticalOptions = LayoutOptions.CenterAndExpand,
+                    HorizontalOptions = LayoutOptions.Center,
+                    GestureRecognizers = {_pan},
+                    BackgroundColor = Color.Black
                 };
 
                 var filePath = (BindingContext as ViewerImage).FilePath;
@@ -96,18 +97,20 @@ namespace Plugin.Swank
                 _panorama = new PanoramaView
                 {
                     FieldOfView = 75.0f,
+                    Yaw = 0,
+                    Pitch = 0,
                     Image = filePath.Contains("http")
                         ? new PanoramaUriImageSource(new Uri(filePath))
                         : (PanoramaImageSource) new PanoramaFileSystemImageSource(filePath),
-                    Yaw = 0,
-                    Pitch = 0,
-                    BackgroundColor = Color.Aquamarine,
-                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    HeightRequest = _panoramaLayout.HeightRequest,
+                    WidthRequest = _panoramaLayout.WidthRequest,
                     VerticalOptions = LayoutOptions.FillAndExpand,
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
                     InputTransparent = true
                 };
                 _panoramaLayout.Children.Add(_panorama);
                 _stackLayout.Children.Insert(0, _panoramaLayout);
+                _image.IsVisible = false;
             }
             else
             {
