@@ -18,7 +18,10 @@ namespace Plugin.Swank.Panorama
 
         public void Dispose()
         {
+            UrhoSurface.OnDestroy();
             _app?.Exit();
+            _app = null;
+            _urhoSurface = null;
         }
 
         public View GetView()
@@ -71,12 +74,12 @@ namespace Plugin.Swank.Panorama
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
+                // sometimes, the scene is not big enough. we wait completion
+                await Task.Delay(500);
+
                 if (_app == null && _urhoSurface != null)
                 {
-                    // sometimes, the scene is not big enough. we wait completion
-                    await Task.Delay(500);
-
-                    _app = await _urhoSurface.Show<PanoramaApp>(new ApplicationOptions(null) // "Data"
+                    _app = await _urhoSurface.Show<PanoramaApp>(new ApplicationOptions(null)
                     {
                         Orientation = ApplicationOptions.OrientationType.LandscapeAndPortrait
                     });
