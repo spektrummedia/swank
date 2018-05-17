@@ -123,10 +123,9 @@ namespace Plugin.Swank
                     }
                 }
 
-                _panorama?.Dispose();
-                _panoramaLayout.Children.Remove(_panorama);
                 _stackLayout.Children.Remove(_panoramaLayout);
                 _stackLayout.Children.Insert(0, _image);
+                _panorama?.Dispose();
             }
 
             Viewer.ToggleIsSwipeEnabled();

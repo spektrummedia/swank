@@ -1,42 +1,63 @@
 ﻿using System;
 using Urho;
-using Urho.IO;
+using Urho.Resources;
 using Urho.Urho2D;
 
 namespace Plugin.Swank.Panorama
 {
     public class PanoramaApp : Application
     {
+        private float _pitch, _yaw;
+
         public PanoramaApp(ApplicationOptions options = null) : base(options)
         {
         }
 
         public void SetImage(MemoryBuffer imageBuff)
         {
-            Node sphere = Renderer.GetViewport(0).Scene.GetChild("room", false);
-
-            if (sphere != null)
+            if (imageBuff == null || imageBuff.Size <= 0)
             {
-                InvokeOnMain(() =>
-                {
-                    var image = new Urho.Resources.Image();
-                    var isLoaded = image.Load(imageBuff);
-                    if (!isLoaded)
-                    {
-                        throw new Exception("This image cannot be load by Swank");
-                    }
-
-                    var texture = new Texture2D();
-                    var isTextureLoaded = texture.SetData(image, false);
-                    if (!isTextureLoaded)
-                    {
-                        throw new Exception("This texture cannot be load by Swank");
-                    }
-
-                    StaticModel modelObject = sphere.GetComponent<StaticModel>();
-                    sphere.GetComponent<StaticModel>().GetMaterial(0).SetTexture(TextureUnit.Diffuse, texture);
-                });
+                // Do not load empty images
+                return;
             }
+
+            if (IsDeleted || IsClosed)
+            {
+                // Do not try to load when application is stopped
+                return;
+            }
+
+            if (Renderer == null || Renderer.IsDeleted)
+            {
+                // Do not load when renderer is deleted
+                return;
+            }
+
+            var sphere = Renderer.GetViewport(0).Scene.GetChild("room", false);
+            if (sphere == null)
+            {
+                return;
+            }
+
+            InvokeOnMain(() =>
+            {
+                var image = new Image();
+                var isLoaded = image.Load(imageBuff);
+                if (!isLoaded)
+                {
+                    throw new Exception("This image cannot be load by Swank");
+                }
+
+                var texture = new Texture2D();
+                var isTextureLoaded = texture.SetData(image, false);
+                if (!isTextureLoaded)
+                {
+                    throw new Exception("This texture cannot be load by Swank");
+                }
+
+                var modelObject = sphere.GetComponent<StaticModel>();
+                sphere.GetComponent<StaticModel>().GetMaterial(0).SetTexture(TextureUnit.Diffuse, texture);
+            });
         }
 
         public void SetFieldOfView(float fieldOfView)
@@ -44,11 +65,9 @@ namespace Plugin.Swank.Panorama
             Renderer.GetViewport(0).Camera.Fov = fieldOfView;
         }
 
-        float _pitch, _yaw;
-
         public void SetPitch(float pitch)
         {
-            Node camera = Renderer.GetViewport(0).Scene.GetChild("camera", false);
+            var camera = Renderer.GetViewport(0).Scene.GetChild("camera", false);
 
             if (camera != null)
             {
@@ -59,7 +78,7 @@ namespace Plugin.Swank.Panorama
 
         public void SetYaw(float yaw)
         {
-            Node camera = Renderer.GetViewport(0).Scene.GetChild("camera", false);
+            var camera = Renderer.GetViewport(0).Scene.GetChild("camera", false);
 
             if (camera != null)
             {
@@ -75,20 +94,20 @@ namespace Plugin.Swank.Panorama
             Create3DObject();
         }
 
-        void Create3DObject()
+        private void Create3DObject()
         {
             // Scene
             var scene = new Scene();
             scene.CreateComponent<Octree>();
 
             // Node (Rotation and Position)
-            Node node = scene.CreateChild("room");
+            var node = scene.CreateChild("room");
             node.Position = new Vector3(0, 0, 0);
             //node.Rotation = new Quaternion(10, 60, 10);
             node.SetScale(1f);
 
             // Model
-            StaticModel modelObject = node.CreateComponent<StaticModel>();
+            var modelObject = node.CreateComponent<StaticModel>();
             modelObject.Model = ResourceCache.GetModel("Models/Sphere.mdl");
 
             var zoneNode = scene.CreateChild("Zone");
@@ -102,8 +121,8 @@ namespace Plugin.Swank.Panorama
             modelObject.SetMaterial(material);
 
             // Camera
-            Node cameraNode = scene.CreateChild(name: "camera");
-            Camera camera = cameraNode.CreateComponent<Camera>();
+            var cameraNode = scene.CreateChild("camera");
+            var camera = cameraNode.CreateComponent<Camera>();
             camera.Fov = 75.8f;
 
             // Viewport
