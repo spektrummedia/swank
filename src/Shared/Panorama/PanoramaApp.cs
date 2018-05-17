@@ -15,32 +15,32 @@ namespace Plugin.Swank.Panorama
 
         public void SetImage(MemoryBuffer imageBuff)
         {
-            if (imageBuff == null || imageBuff.Size <= 0)
-            {
-                // Do not load empty images
-                return;
-            }
-
-            if (IsDeleted || IsClosed)
-            {
-                // Do not try to load when application is stopped
-                return;
-            }
-
-            if (Renderer == null || Renderer.IsDeleted)
-            {
-                // Do not load when renderer is deleted
-                return;
-            }
-
-            var sphere = Renderer.GetViewport(0).Scene.GetChild("room", false);
-            if (sphere == null)
-            {
-                return;
-            }
-
             InvokeOnMain(() =>
             {
+                if (imageBuff == null || imageBuff.Size <= 0)
+                {
+                    // Do not load empty images
+                    return;
+                }
+
+                if (IsDeleted || IsClosed)
+                {
+                    // Do not try to load when application is stopped
+                    return;
+                }
+
+                if (Renderer == null || Renderer.IsDeleted)
+                {
+                    // Do not load when renderer is deleted
+                    return;
+                }
+
+                var sphere = Renderer.GetViewport(0).Scene.GetChild("room", false);
+                if (sphere == null)
+                {
+                    return;
+                }
+
                 var image = new Image();
                 var isLoaded = image.Load(imageBuff);
                 if (!isLoaded)
