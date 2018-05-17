@@ -28,7 +28,12 @@ namespace Plugin.Swank.Panorama
         {
             if (_urhoSurface == null)
             {
-                _urhoSurface = CreateView() as UrhoSurface;
+                _urhoSurface = new UrhoSurface
+                {
+                    VerticalOptions = LayoutOptions.FillAndExpand,
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    InputTransparent = true,
+                };
             }
 
             return _urhoSurface;
@@ -90,18 +95,6 @@ namespace Plugin.Swank.Panorama
                     UpdateYaw();
                 }
             });
-        }
-
-        private View CreateView()
-        {
-            var urhoSurface = new UrhoSurface
-            {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                InputTransparent = true,
-            };
-
-            return urhoSurface;
         }
 
         private async void UpdateImage()
