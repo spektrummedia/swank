@@ -110,13 +110,10 @@ namespace Plugin.Swank
                 };
                 _panoramaLayout.Children.Add(_panorama);
                 _stackLayout.Children.Insert(0, _panoramaLayout);
-                _image.IsVisible = false;
+                _stackLayout.Children.Remove(_image);
             }
             else
             {
-                _panoramaLayout.IsVisible = false;
-                _image.IsVisible = true;
-
                 if (_panoramaLayout.GestureRecognizers.Any())
                 {
                     _pan.PanUpdated -= OnPanUpdated;
@@ -129,6 +126,7 @@ namespace Plugin.Swank
                 _panorama?.Dispose();
                 _panoramaLayout.Children.Remove(_panorama);
                 _stackLayout.Children.Remove(_panoramaLayout);
+                _stackLayout.Children.Insert(0, _image);
             }
 
             Viewer.ToggleIsSwipeEnabled();
