@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Plugin.Swank.Panorama
 {
-    public class PanoramaView : ContentView, IDisposable
+    public class PanoramaView : ContentView
     {
         public PanoramaImageSource Image
         {
@@ -94,12 +94,6 @@ namespace Plugin.Swank.Panorama
             {
                 _paranoramaController.SetPitch(Pitch);
             }
-        }
-
-        public void Dispose()
-        {
-            _paranoramaController?.Dispose();
-            _paranoramaController = null;
         }
     }
 }

@@ -50,6 +50,18 @@ namespace Plugin.Swank
 
         private void Create360Controls(ViewerImage image)
         {
+            _panorama = new PanoramaView
+            {
+                FieldOfView = 75.0f,
+                Yaw = 0,
+                Pitch = 0,
+                HeightRequest = _panoramaLayout.HeightRequest,
+                WidthRequest = _panoramaLayout.WidthRequest,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                InputTransparent = true
+            };
+
             // Lock-in/lock-out
             var immersionSwitch = new Switch
             {
@@ -94,20 +106,10 @@ namespace Plugin.Swank
 
                 var filePath = (BindingContext as ViewerImage).FilePath;
 
-                _panorama = new PanoramaView
-                {
-                    FieldOfView = 75.0f,
-                    Yaw = 0,
-                    Pitch = 0,
-                    Image = filePath.Contains("http")
-                        ? new PanoramaUriImageSource(new Uri(filePath))
-                        : (PanoramaImageSource) new PanoramaFileSystemImageSource(filePath),
-                    HeightRequest = _panoramaLayout.HeightRequest,
-                    WidthRequest = _panoramaLayout.WidthRequest,
-                    VerticalOptions = LayoutOptions.FillAndExpand,
-                    HorizontalOptions = LayoutOptions.FillAndExpand,
-                    InputTransparent = true
-                };
+                _panorama.Image = filePath.Contains("http")
+                    ? new PanoramaUriImageSource(new Uri(filePath))
+                    : (PanoramaImageSource) new PanoramaFileSystemImageSource(filePath);
+
                 _panoramaLayout.Children.Add(_panorama);
                 _stackLayout.Children.Insert(0, _panoramaLayout);
                 _stackLayout.Children.Remove(_image);
@@ -123,7 +125,7 @@ namespace Plugin.Swank
                     }
                 }
 
-                _panorama?.Dispose();
+                _panoramaLayout.Children.Remove(_panorama);
                 _stackLayout.Children.Remove(_panoramaLayout);
                 _stackLayout.Children.Insert(0, _image);
             }

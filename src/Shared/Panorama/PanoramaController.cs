@@ -9,20 +9,12 @@ using View = Xamarin.Forms.View;
 
 namespace Plugin.Swank.Panorama
 {
-    public class PanoramaController : IDisposable
+    public class PanoramaController
     {
         private PanoramaApp _app;
         private float _fieldOfView, _yaw, _pitch;
         private PanoramaImageSource _imageSource;
         private UrhoSurface _urhoSurface;
-
-        public void Dispose()
-        {
-            UrhoSurface.OnDestroy();
-            _app?.Exit();
-            _app = null;
-            _urhoSurface = null;
-        }
 
         public View GetView()
         {
