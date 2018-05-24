@@ -4,8 +4,10 @@ using Xamarin.Forms;
 
 namespace Plugin.Swank.Panorama
 {
-    public class PanoramaView : ContentView, IDisposable
+    public class PanoramaView : ContentView
     {
+        private bool isInit { get; set; }
+
         public PanoramaImageSource Image
         {
             get => (PanoramaImageSource) GetValue(ImageProperty);
@@ -30,6 +32,8 @@ namespace Plugin.Swank.Panorama
             set => SetValue(PitchProperty, value);
         }
 
+        private PanoramaController _paranoramaController { get; }
+
         public static readonly BindableProperty ImageProperty =
             BindableProperty.Create(nameof(Image), typeof(PanoramaImageSource), typeof(PanoramaView), null,
                 BindingMode.OneWay, null, (s, oldValue, newValue) => (s as PanoramaView).ImagePropertyChanged());
@@ -46,19 +50,24 @@ namespace Plugin.Swank.Panorama
             BindableProperty.Create(nameof(Pitch), typeof(float), typeof(PanoramaView), 0.0f, BindingMode.OneWay, null,
                 (s, oldValue, newValue) => (s as PanoramaView).PitchPropertyChanged());
 
-        private PanoramaController _paranoramaController { get; set; }
+        private readonly PanGestureRecognizer _pan = new PanGestureRecognizer();
 
         public PanoramaView()
         {
             _paranoramaController = new PanoramaController();
+            InputTransparent = true;
+            VerticalOptions = LayoutOptions.FillAndExpand;
+            HorizontalOptions = LayoutOptions.FillAndExpand;
+            BackgroundColor = Color.Black;
         }
 
         protected override void OnParentSet()
         {
             base.OnParentSet();
 
-            if (_paranoramaController != null)
+            if (!isInit)
             {
+                isInit = true;
                 Content = _paranoramaController.GetView();
                 _paranoramaController.Initialize();
             }
@@ -94,12 +103,6 @@ namespace Plugin.Swank.Panorama
             {
                 _paranoramaController.SetPitch(Pitch);
             }
-        }
-
-        public void Dispose()
-        {
-            _paranoramaController?.Dispose();
-            _paranoramaController = null;
         }
     }
 }
