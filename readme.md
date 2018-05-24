@@ -21,12 +21,27 @@ SwankImplementation.Init();
 First add the xmlns namespace:
 
 ```
-xmlns:swank="clr-namespace:Plugin.Swank;assembly=Swank.FormsPlugin"
+xmlns:swankPlugin="clr-namespace:Swank.FormsPlugin;assembly=Swank.FormsPlugin"
 ```
 
 Then add the xaml:
 
 ```xml
 <!-- ViewerImages = IEnumerable<ViewerImage> -->
-<swank:Viewer ItemsSource="{Binding ViewerImages}" />
+<swankPlugin:Gallery ItemsSource="{Binding ViewerImages}" />
+```
+
+#### Options
+
+`PositionSelected`: You can attach an event handler that will be fired with the current carousel position.
+
+```xml
+<swankPlugin:Gallery PositionSelected="Carousel_OnPositionSelected" />
+```
+
+```csharp
+private void Carousel_OnPositionSelected(object sender, PositionSelectedEventArgs e)
+{
+    Console.WriteLine($"Index is {e.NewValue}")
+}
 ```
