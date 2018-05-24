@@ -24,7 +24,7 @@ namespace Plugin.Swank.Panorama
                 {
                     VerticalOptions = LayoutOptions.FillAndExpand,
                     HorizontalOptions = LayoutOptions.FillAndExpand,
-                    InputTransparent = true,
+                    InputTransparent = true
                 };
             }
 
