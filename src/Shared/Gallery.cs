@@ -90,7 +90,9 @@ namespace Swank.FormsPlugin
 
         private void PositionChanged(object newValue)
         {
+            _viewer.AnimateTransition = false;
             _viewer.Position = (int)newValue;
+            _viewer.AnimateTransition = true;
         }
 
         private void SetLayout()
