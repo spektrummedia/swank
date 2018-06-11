@@ -14,6 +14,7 @@ namespace Swank.iOS.Tests
         {
             var gallery = new Gallery()
             {
+                Position = 1,
                 ItemsSource = new List<ViewerImage>
                 {
                     new ViewerImage {Source = ImageSource.FromUri(new Uri("http://via.placeholder.com/1700x1275"))},
