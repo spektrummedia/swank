@@ -12,11 +12,29 @@ namespace Swank.FormsPlugin
     {
         public IEnumerable ItemsSource
         {
-            get => (IEnumerable) GetValue(ItemsSourceProperty);
+            get => (IEnumerable)GetValue(ItemsSourceProperty);
             set => SetValue(ItemsSourceProperty, value);
         }
 
-        public event EventHandler<PositionSelectedEventArgs> PositionSelected;
+        public int Position
+        {
+            get => (int)GetValue(PositionProperty);
+            set => SetValue(PositionProperty, value);
+        }
+
+        public static readonly BindableProperty PositionProperty =
+            BindableProperty.Create(
+                nameof(Position),
+                typeof(int),
+                typeof(Gallery),
+                0,
+                BindingMode.TwoWay,
+                null,
+                (s, value, newValue) => (s as Gallery).PositionChanged(newValue),
+                null,
+                null,
+                null
+            );
 
         public static readonly BindableProperty ItemsSourceProperty =
             BindableProperty.Create(
@@ -43,7 +61,7 @@ namespace Swank.FormsPlugin
                 ItemsSource = ItemsSource,
                 PositionSelectedCommand = new Command(() =>
                 {
-                    PositionSelected?.Invoke(this, new PositionSelectedEventArgs()
+                    PositionSelected?.Invoke(this, new PositionSelectedEventArgs
                     {
                         NewValue = _viewer.Position
                     });
@@ -63,9 +81,16 @@ namespace Swank.FormsPlugin
             SetLayout();
         }
 
+        public event EventHandler<PositionSelectedEventArgs> PositionSelected;
+
         private void SourceChanged(object newValue)
         {
-            _viewer.ItemsSource = (IEnumerable) newValue;
+            _viewer.ItemsSource = (IEnumerable)newValue;
+        }
+
+        private void PositionChanged(object newValue)
+        {
+            _viewer.Position = (int)newValue;
         }
 
         private void SetLayout()
@@ -118,7 +143,7 @@ namespace Swank.FormsPlugin
                 return;
             }
 
-            _panorama.Yaw += (float) (totalX / 100);
+            _panorama.Yaw += (float)(totalX / 100);
         }
 
         private void ComputePitch(double totalY)
@@ -128,7 +153,7 @@ namespace Swank.FormsPlugin
                 return;
             }
 
-            var newPitch = _panorama.Pitch + (float) (totalY / 100);
+            var newPitch = _panorama.Pitch + (float)(totalY / 100);
             if (newPitch <= 40 && newPitch >= -40)
             {
                 _panorama.Pitch = newPitch;
