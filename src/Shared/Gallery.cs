@@ -10,12 +10,6 @@ namespace Swank.FormsPlugin
 {
     public class Gallery : ContentView
     {
-        public IEnumerable ItemsSource
-        {
-            get => (IEnumerable)GetValue(ItemsSourceProperty);
-            set => SetValue(ItemsSourceProperty, value);
-        }
-
         public int Position
         {
             get => (int)GetValue(PositionProperty);
@@ -28,13 +22,20 @@ namespace Swank.FormsPlugin
                 typeof(int),
                 typeof(Gallery),
                 0,
-                BindingMode.TwoWay,
+                BindingMode.OneWay,
                 null,
                 (s, value, newValue) => (s as Gallery).PositionChanged(newValue),
                 null,
                 null,
                 null
             );
+
+
+        public IEnumerable ItemsSource
+        {
+            get => (IEnumerable)GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
+        }
 
         public static readonly BindableProperty ItemsSourceProperty =
             BindableProperty.Create(
@@ -49,6 +50,21 @@ namespace Swank.FormsPlugin
                 null,
                 null
             );
+
+        public static readonly BindableProperty IsInfiniteProperty = 
+            BindableProperty.Create(
+                nameof(IsInfinite),
+                typeof(bool),
+                typeof(Gallery),
+                default(bool),
+                BindingMode.TwoWay
+            );
+
+        public bool IsInfinite
+        {
+            get => (bool) GetValue(IsInfiniteProperty);
+            set => SetValue(IsInfiniteProperty, value);
+        }
 
         private readonly PanGestureRecognizer _pan = new PanGestureRecognizer();
         private readonly PanoramaView _panorama;
@@ -90,9 +106,11 @@ namespace Swank.FormsPlugin
 
         private void PositionChanged(object newValue)
         {
-            _viewer.AnimateTransition = false;
-            _viewer.Position = (int)newValue;
-            _viewer.AnimateTransition = true;
+            var newPosition = (int) newValue;
+            if (newPosition != _viewer.Position)
+            {
+                _viewer.Position = newPosition;
+            }
         }
 
         private void SetLayout()
