@@ -90,11 +90,10 @@ namespace Plugin.Swank.Panorama
         protected override void Start()
         {
             base.Start();
-
             Create3DObject();
         }
 
-        private void Create3DObject()
+        public void Create3DObject()
         {
             // Scene
             var scene = new Scene();

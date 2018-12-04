@@ -5,6 +5,7 @@ using Plugin.Swank.Panorama.ImageSources;
 using Urho;
 using Urho.Forms;
 using Xamarin.Forms;
+using Application = Urho.Application;
 using View = Xamarin.Forms.View;
 
 namespace Plugin.Swank.Panorama
@@ -27,7 +28,6 @@ namespace Plugin.Swank.Panorama
                     InputTransparent = true
                 };
             }
-
             return _urhoSurface;
         }
 
@@ -69,24 +69,48 @@ namespace Plugin.Swank.Panorama
 
         public void Initialize()
         {
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                // sometimes, the scene is not big enough. we wait completion
-                await Task.Delay(500);
+            Device.BeginInvokeOnMainThread(InvokeSetup);
+        }
 
-                if (_app == null && _urhoSurface != null)
+        private async void InvokeSetup()
+        {
+            try
+            {
+                await Setup();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Re-initialising urho application exception: {ex.StackTrace}");
+            }
+        }
+
+        private async Task Setup()
+        {
+            // sometimes, the scene is not big enough. we wait completion
+            await Task.Delay(500);
+
+            if (_app == null && _urhoSurface != null)
+            {
+                if (!Application.HasCurrent)
                 {
-                    _app = await _urhoSurface.Show<PanoramaApp>(new ApplicationOptions(null)
+                    var applicationOptions = new ApplicationOptions
                     {
                         Orientation = ApplicationOptions.OrientationType.LandscapeAndPortrait
-                    });
+                    };
 
-                    UpdateImage();
-                    UpdateFieldOfView();
-                    UpdatePitch();
-                    UpdateYaw();
+                    _app = await _urhoSurface.Show<PanoramaApp>(applicationOptions);
                 }
-            });
+                else
+                {
+                    _app = (PanoramaApp)Application.Current;
+                    //_app.Create3DObject();
+                }
+
+                UpdateImage();
+                UpdateFieldOfView();
+                UpdatePitch();
+                UpdateYaw();
+            }
         }
 
         private async void UpdateImage()
