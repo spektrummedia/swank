@@ -103,7 +103,24 @@ namespace Plugin.Swank.Panorama
                 else
                 {
                     _app = (PanoramaApp)Application.Current;
-                    //_app.Create3DObject();
+                    //_app.Lol();
+                    //await _app.Exit();
+                    UrhoSurface.OnResume();
+
+
+                    //var applicationOptions = new ApplicationOptions
+                    //{
+                    //    Orientation = ApplicationOptions.OrientationType.LandscapeAndPortrait
+                    //};
+
+                    //_urhoSurface = new UrhoSurface
+                    //{
+                    //    VerticalOptions = LayoutOptions.FillAndExpand,
+                    //    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    //    InputTransparent = true
+                    //};
+                    //_app = await _urhoSurface.Show<PanoramaApp>(applicationOptions);
+
                 }
 
                 UpdateImage();

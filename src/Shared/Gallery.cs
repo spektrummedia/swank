@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using CarouselView.FormsPlugin.Abstractions;
 using Plugin.Swank;
 using Plugin.Swank.Panorama;
 using Plugin.Swank.Panorama.ImageSources;
+using Urho.Forms;
 using Xamarin.Forms;
 
 namespace Swank.FormsPlugin
@@ -189,5 +191,6 @@ namespace Swank.FormsPlugin
         {
             _panorama.Image = source;
         }
+
     }
 }

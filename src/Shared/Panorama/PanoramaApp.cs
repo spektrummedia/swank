@@ -8,6 +8,8 @@ namespace Plugin.Swank.Panorama
     public class PanoramaApp : Application
     {
         private float _pitch, _yaw;
+        public bool HasBeenIn360ModeAtLeastOnce { get; set; }
+        public bool CurrentImageIs360 { get; set; }
 
         public PanoramaApp(ApplicationOptions options = null) : base(options)
         {
@@ -55,7 +57,6 @@ namespace Plugin.Swank.Panorama
                     throw new Exception("This texture cannot be load by Swank");
                 }
 
-                var modelObject = sphere.GetComponent<StaticModel>();
                 sphere.GetComponent<StaticModel>().GetMaterial(0).SetTexture(TextureUnit.Diffuse, texture);
             });
         }

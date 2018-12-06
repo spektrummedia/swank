@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using CarouselView.FormsPlugin.Abstractions;
+using Plugin.Swank.Panorama;
 using Plugin.Swank.Panorama.ImageSources;
 using Swank.FormsPlugin;
 using Xamarin.Forms;
@@ -31,6 +32,12 @@ namespace Plugin.Swank
         {
             IsSwipeEnabled = !IsSwipeEnabled;
             Gallery?.TogglePanoramaVisibility();
+
+            if (Urho.Application.HasCurrent)
+            {
+                var app = (PanoramaApp)Urho.Application.Current;
+                app.HasBeenIn360ModeAtLeastOnce = true;
+            }
 
             if (!string.IsNullOrEmpty(filePath))
             {
