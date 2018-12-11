@@ -1,5 +1,4 @@
-﻿using Plugin.Swank.Panorama;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Plugin.Swank
 {
@@ -25,7 +24,6 @@ namespace Plugin.Swank
 
         public ViewerImageTemplate()
         {
-            var currentImage = BindingContext as ViewerImage;
             _image.SetBinding(Image.SourceProperty, nameof(ViewerImage.Source));
             _stackLayout.Children.Add(_image);
             Content = _stackLayout;
@@ -37,23 +35,7 @@ namespace Plugin.Swank
             var image = BindingContext as ViewerImage;
             if (image != null && image.Is360)
             {
-                if (Urho.Application.HasCurrent)
-                {
-                    var app = (PanoramaApp)Urho.Application.Current;
-                    if (image.Is360)
-                    {
-                        app.CurrentImageIs360 = true;
-                    }
-                }
                 Create360Controls(image);
-            }
-            else
-            {
-                if (Urho.Application.HasCurrent)
-                {
-                    var app = (PanoramaApp) Urho.Application.Current;
-                    app.CurrentImageIs360 = false;
-                }
             }
         }
 

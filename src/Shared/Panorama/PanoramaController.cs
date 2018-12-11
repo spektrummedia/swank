@@ -19,16 +19,12 @@ namespace Plugin.Swank.Panorama
 
         public View GetView()
         {
-            if (_urhoSurface == null)
+            return _urhoSurface ?? (_urhoSurface = new UrhoSurface
             {
-                _urhoSurface = new UrhoSurface
-                {
-                    VerticalOptions = LayoutOptions.FillAndExpand,
-                    HorizontalOptions = LayoutOptions.FillAndExpand,
-                    InputTransparent = true
-                };
-            }
-            return _urhoSurface;
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                InputTransparent = true
+            });
         }
 
         public void SetImage(PanoramaImageSource imageSource)
@@ -80,7 +76,7 @@ namespace Plugin.Swank.Panorama
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Re-initialising urho application exception: {ex.StackTrace}");
+                Console.WriteLine($"Error initializing urho application: {ex.StackTrace}");
             }
         }
 
@@ -102,32 +98,15 @@ namespace Plugin.Swank.Panorama
                 }
                 else
                 {
-                    _app = (PanoramaApp)Application.Current;
-                    //_app.Lol();
-                    //await _app.Exit();
-                    UrhoSurface.OnResume();
-
-
-                    //var applicationOptions = new ApplicationOptions
-                    //{
-                    //    Orientation = ApplicationOptions.OrientationType.LandscapeAndPortrait
-                    //};
-
-                    //_urhoSurface = new UrhoSurface
-                    //{
-                    //    VerticalOptions = LayoutOptions.FillAndExpand,
-                    //    HorizontalOptions = LayoutOptions.FillAndExpand,
-                    //    InputTransparent = true
-                    //};
-                    //_app = await _urhoSurface.Show<PanoramaApp>(applicationOptions);
-
+                    _app = (PanoramaApp) Application.Current;
                 }
-
+             
                 UpdateImage();
                 UpdateFieldOfView();
                 UpdatePitch();
-                UpdateYaw();
+                UpdateYaw();    
             }
+
         }
 
         private async void UpdateImage()

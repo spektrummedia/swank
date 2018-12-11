@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using CarouselView.FormsPlugin.Abstractions;
 using Plugin.Swank;
 using Plugin.Swank.Panorama;
 using Plugin.Swank.Panorama.ImageSources;
-using Urho.Forms;
 using Xamarin.Forms;
 
 namespace Swank.FormsPlugin
@@ -69,8 +67,9 @@ namespace Swank.FormsPlugin
         }
 
         private readonly PanGestureRecognizer _pan = new PanGestureRecognizer();
-        private readonly PanoramaView _panorama;
         private readonly Viewer _viewer;
+
+        public PanoramaView _panorama;
 
         public Gallery()
         {
@@ -185,12 +184,16 @@ namespace Swank.FormsPlugin
         public void TogglePanoramaVisibility()
         {
             _panorama.IsVisible = !_panorama.IsVisible;
+
+            if (_panorama.IsVisible)
+            {
+                _panorama.Initialize();
+            }
         }
 
         public void SetPanoramaImage(PanoramaImageSource source)
         {
             _panorama.Image = source;
         }
-
     }
 }
