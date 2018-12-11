@@ -1,13 +1,10 @@
-﻿using System;
-using Plugin.Swank.Panorama.ImageSources;
+﻿using Plugin.Swank.Panorama.ImageSources;
 using Xamarin.Forms;
 
 namespace Plugin.Swank.Panorama
 {
     public class PanoramaView : ContentView
     {
-        private bool isInit { get; set; }
-
         public PanoramaImageSource Image
         {
             get => (PanoramaImageSource) GetValue(ImageProperty);
@@ -50,8 +47,6 @@ namespace Plugin.Swank.Panorama
             BindableProperty.Create(nameof(Pitch), typeof(float), typeof(PanoramaView), 0.0f, BindingMode.OneWay, null,
                 (s, oldValue, newValue) => (s as PanoramaView).PitchPropertyChanged());
 
-        private readonly PanGestureRecognizer _pan = new PanGestureRecognizer();
-
         public PanoramaView()
         {
             _paranoramaController = new PanoramaController();
@@ -61,48 +56,30 @@ namespace Plugin.Swank.Panorama
             BackgroundColor = Color.Black;
         }
 
-        protected override void OnParentSet()
+        public void Initialize()
         {
-            base.OnParentSet();
-
-            if (!isInit)
-            {
-                isInit = true;
-                Content = _paranoramaController.GetView();
-                _paranoramaController.Initialize();
-            }
+            Content = _paranoramaController.GetView();
+            _paranoramaController.Initialize();
         }
 
         private void ImagePropertyChanged()
         {
-            if (_paranoramaController != null)
-            {
-                _paranoramaController.SetImage(Image);
-            }
+            _paranoramaController?.SetImage(Image);
         }
 
         private void FieldOfViewPropertyChanged()
         {
-            if (_paranoramaController != null)
-            {
-                _paranoramaController.SetFieldOfView(FieldOfView);
-            }
+            _paranoramaController?.SetFieldOfView(FieldOfView);
         }
 
         private void YawPropertyChanged()
         {
-            if (_paranoramaController != null)
-            {
-                _paranoramaController.SetYaw(Yaw);
-            }
+            _paranoramaController?.SetYaw(Yaw);
         }
 
         private void PitchPropertyChanged()
         {
-            if (_paranoramaController != null)
-            {
-                _paranoramaController.SetPitch(Pitch);
-            }
+            _paranoramaController?.SetPitch(Pitch);
         }
     }
 }

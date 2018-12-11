@@ -5,6 +5,7 @@ using Plugin.Swank.Panorama.ImageSources;
 using Urho;
 using Urho.Forms;
 using Xamarin.Forms;
+using Application = Urho.Application;
 using View = Xamarin.Forms.View;
 
 namespace Plugin.Swank.Panorama
@@ -18,17 +19,12 @@ namespace Plugin.Swank.Panorama
 
         public View GetView()
         {
-            if (_urhoSurface == null)
+            return _urhoSurface ?? (_urhoSurface = new UrhoSurface
             {
-                _urhoSurface = new UrhoSurface
-                {
-                    VerticalOptions = LayoutOptions.FillAndExpand,
-                    HorizontalOptions = LayoutOptions.FillAndExpand,
-                    InputTransparent = true
-                };
-            }
-
-            return _urhoSurface;
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                InputTransparent = true
+            });
         }
 
         public void SetImage(PanoramaImageSource imageSource)
@@ -69,24 +65,48 @@ namespace Plugin.Swank.Panorama
 
         public void Initialize()
         {
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                // sometimes, the scene is not big enough. we wait completion
-                await Task.Delay(500);
+            Device.BeginInvokeOnMainThread(InvokeSetup);
+        }
 
-                if (_app == null && _urhoSurface != null)
+        private async void InvokeSetup()
+        {
+            try
+            {
+                await Setup();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error initializing urho application: {ex.StackTrace}");
+            }
+        }
+
+        private async Task Setup()
+        {
+            // sometimes, the scene is not big enough. we wait completion
+            await Task.Delay(500);
+
+            if (_app == null && _urhoSurface != null)
+            {
+                if (!Application.HasCurrent)
                 {
-                    _app = await _urhoSurface.Show<PanoramaApp>(new ApplicationOptions(null)
+                    var applicationOptions = new ApplicationOptions
                     {
                         Orientation = ApplicationOptions.OrientationType.LandscapeAndPortrait
-                    });
+                    };
 
-                    UpdateImage();
-                    UpdateFieldOfView();
-                    UpdatePitch();
-                    UpdateYaw();
+                    _app = await _urhoSurface.Show<PanoramaApp>(applicationOptions);
                 }
-            });
+                else
+                {
+                    _app = (PanoramaApp) Application.Current;
+                }
+             
+                UpdateImage();
+                UpdateFieldOfView();
+                UpdatePitch();
+                UpdateYaw();    
+            }
+
         }
 
         private async void UpdateImage()

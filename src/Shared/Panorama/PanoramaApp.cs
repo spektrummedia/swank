@@ -35,7 +35,7 @@ namespace Plugin.Swank.Panorama
                     return;
                 }
 
-                var sphere = Renderer.GetViewport(0).Scene.GetChild("room", false);
+                var sphere = Renderer.GetViewport(0).Scene.GetChild("room");
                 if (sphere == null)
                 {
                     return;
@@ -49,14 +49,13 @@ namespace Plugin.Swank.Panorama
                 }
 
                 var texture = new Texture2D();
-                var isTextureLoaded = texture.SetData(image, false);
+                var isTextureLoaded = texture.SetData(image);
                 if (!isTextureLoaded)
                 {
                     throw new Exception("This texture cannot be load by Swank");
                 }
 
-                var modelObject = sphere.GetComponent<StaticModel>();
-                sphere.GetComponent<StaticModel>().GetMaterial(0).SetTexture(TextureUnit.Diffuse, texture);
+                sphere.GetComponent<StaticModel>().GetMaterial().SetTexture(TextureUnit.Diffuse, texture);
             });
         }
 
@@ -67,7 +66,7 @@ namespace Plugin.Swank.Panorama
 
         public void SetPitch(float pitch)
         {
-            var camera = Renderer.GetViewport(0).Scene.GetChild("camera", false);
+            var camera = Renderer.GetViewport(0).Scene.GetChild("camera");
 
             if (camera != null)
             {
@@ -78,7 +77,7 @@ namespace Plugin.Swank.Panorama
 
         public void SetYaw(float yaw)
         {
-            var camera = Renderer.GetViewport(0).Scene.GetChild("camera", false);
+            var camera = Renderer.GetViewport(0).Scene.GetChild("camera");
 
             if (camera != null)
             {
@@ -90,11 +89,10 @@ namespace Plugin.Swank.Panorama
         protected override void Start()
         {
             base.Start();
-
             Create3DObject();
         }
 
-        private void Create3DObject()
+        public void Create3DObject()
         {
             // Scene
             var scene = new Scene();
@@ -113,10 +111,11 @@ namespace Plugin.Swank.Panorama
             var zoneNode = scene.CreateChild("Zone");
             var zone = zoneNode.CreateComponent<Zone>();
             zone.SetBoundingBox(new BoundingBox(-300.0f, 300.0f));
-            zone.AmbientColor = new Color(1f, 1f, 1f);
+            zone.AmbientColor = new Color(1f);
+            zone.CastShadows = false;
 
             var material = new Material();
-            material.SetTechnique(0, CoreAssets.Techniques.DiffNormal, 0, 0);
+            material.SetTechnique(0, CoreAssets.Techniques.DiffNormal);
             material.CullMode = CullMode.Cw;
             modelObject.SetMaterial(material);
 

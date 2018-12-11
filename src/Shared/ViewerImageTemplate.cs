@@ -24,7 +24,6 @@ namespace Plugin.Swank
 
         public ViewerImageTemplate()
         {
-            var currentImage = BindingContext as ViewerImage;
             _image.SetBinding(Image.SourceProperty, nameof(ViewerImage.Source));
             _stackLayout.Children.Add(_image);
             Content = _stackLayout;
