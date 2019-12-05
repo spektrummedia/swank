@@ -7,6 +7,8 @@
 
 Xamarin embeddable image viewer with 360 degree support
 
+Note: For now we only support iOS and there is no plan to support Android for the moment. However, we would be happy to review any PRs regarding this feature.
+
 ### iOS
 
 In your iOS project call:
